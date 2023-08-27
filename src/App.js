@@ -1,13 +1,18 @@
-import logo from './logo.svg';
 import './App.css';
+import './components/Navbar';
+import Navbar from "./components/Navbar";
 
-function App() {
+export default function App() {
   return (
     <>
-      <h1>Hello World!</h1>
-      <h2>First React App On a Live Server!</h2>
+        <Navbar/>
+
+        <div className="container">
+            <div className="left-sidebar">Left Sidebar</div>
+            <div className="content">Main Content</div>
+            <div className="right-sidebar">Right Sidebar</div>
+        </div>
+
     </>
   );
 }
-
-export default App;
