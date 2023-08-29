@@ -1,0 +1,14 @@
+table {
+    border-collapse: collapse; /* Merge adjacent borders */
+    width: 100%; /* Optional: Set the table width */
+}
+
+th {
+    border-bottom: 1px solid #dcdcdd;
+    text-align: center;
+}
+
+td {
+    padding-top: .75em;
+    text-align: center;
+}

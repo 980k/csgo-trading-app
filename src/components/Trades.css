@@ -1,0 +1,12 @@
+/* GridComponent.css */
+#grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+}
+
+.grid-item {
+    border: .8px solid #dcdcdd;
+    padding: 10px;
+    min-height: 200px;
+}
