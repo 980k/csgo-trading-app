@@ -1,0 +1,12 @@
+.trade-grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+}
+
+.trade-grid-item {
+    border: .8px solid #dcdcdd;
+    border-radius: 5px;
+    padding: 10px;
+    height: 200px;
+}

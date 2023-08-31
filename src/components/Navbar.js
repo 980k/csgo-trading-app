@@ -1,26 +1,35 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import './Navbar.css';
 
 export default function Navbar() {
     return (
-        <nav>
+        <header className="navbar">
             <div className="navbar-logo">
-                <a href="">CSMEX</a>
+                <h1>CSMEX</h1>
             </div>
-            <ul className="navbar-items">
-                <li>
-                    <a href="">Trades</a>
-                </li>
-                <li>
-                    <a href="">Offers</a>
-                </li>
-                <li>
-                    <a href="">Create</a>
-                </li>
-            </ul>
+            <nav className="navbar-menu">
+                <ul>
+                    <li>
+                        <NavLink to="/" activeClassName="active-link" className="navbar-link" exact>
+                            Trades
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/offers" activeClassName="active-link" className="navbar-link">
+                            Offers
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/create" activeClassName="active-link" className="navbar-link">
+                            Create
+                        </NavLink>
+                    </li>
+                </ul>
+            </nav>
             <div className="navbar-login">
-                <a href="">Login</a>
+                <NavLink to="/login" className="login-link">Login</NavLink>
             </div>
-        </nav>
+        </header>
     );
 }

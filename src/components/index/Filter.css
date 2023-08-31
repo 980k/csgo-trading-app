@@ -2,17 +2,17 @@
     max-width: 100%;
 }
 
-h2 {
+.filter h2 {
     font-size: 1em;
 }
 
-ul {
+.filter ul {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
-li {
+.filter li {
     padding-bottom: 1rem;
 }
 

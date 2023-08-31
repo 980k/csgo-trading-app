@@ -1,28 +1,23 @@
-import './App.css';
-import Navbar from "./components/Navbar";
-import Filter from "./components/Filter";
-import GridComponent from "./components/Trades";
-import Activity from "./components/Activity";
-import { NavLink as Link } from "react-router-dom";
-
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Index from './pages/Index';
+import Offers from "./pages/Offers";
+import Create from "./pages/Create";
+import Login from "./pages/Login";
 
 export default function App() {
-  return (
-    <>
-        <Navbar/>
-
-        <div id="container">
-            <div id="left-sidebar">
-                <Filter/>
-            </div>
-            <div id="content" >
-                <GridComponent/>
-            </div>
-
-            <div id="right-sidebar">
-                <Activity/>
-            </div>
-        </div>
-    </>
-  );
+    return (
+        <Router>
+            <Navbar />
+            <Routes>
+                <Route path='/' exact element={<Index />} />
+                <Route path='/offers' element={<Offers />} />
+                <Route path='/create' element={<Create />} />
+                <Route path='/login' element={<Login />} />
+            </Routes>
+        </Router>
+    );
 }
+
+

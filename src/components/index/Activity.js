@@ -8,7 +8,7 @@ export default function Activity() {
                 <h2>Activity</h2>
             </header>
 
-            <table>
+            <table className="activity-table">
                 <tr>
                     <th>Time</th>
                     <th>Trade</th>
@@ -54,8 +54,6 @@ export default function Activity() {
                     <td> Talon Knife Marble Fade (FN) &#x2194; Skeleton K... </td>
                 </tr>
             </table>
-
-
         </div>
     );
 }
