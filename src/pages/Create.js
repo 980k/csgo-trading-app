@@ -1,9 +1,10 @@
 import React from 'react';
+import Creation from "../components/create/Creation";
 
 export default function Create() {
     return(
-        <div>
-            <h2>Create Page</h2>
+        <div className="create">
+            <Creation />
         </div>
     );
 }

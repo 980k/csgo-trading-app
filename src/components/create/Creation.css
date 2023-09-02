@@ -1,0 +1,32 @@
+.creation-container {
+    position: relative;
+    height: 100vh; /* Ensure the container covers the viewport height */
+    text-align: center; /* Center horizontally */
+}
+
+/* Center the form using absolute positioning */
+.creation-container form {
+    position: absolute;
+    top: 25%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Move the form back by half of its own width and height */
+    max-width: 1000px; /* Set a maximum width for the form */
+    padding: 20px; /* Add padding for spacing inside the form */
+    border: 1px solid #ccc; /* Optional: Add a border for styling */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow for styling */
+}
+
+/*#submitBtn {*/
+/*    margin-top: 20px;*/
+/*}*/
+
+.creation-container fieldset {
+    margin-bottom: 10px;
+    margin-top: 10px;
+    padding: 20px;
+}
+.swap {
+    margin: 0;
+    padding: 0;
+    font-size: 25px;
+}
