@@ -13,7 +13,6 @@
     max-width: 1000px; /* Set a maximum width for the form */
     padding: 20px; /* Add padding for spacing inside the form */
     border: 1px solid #ccc; /* Optional: Add a border for styling */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow for styling */
 }
 
 /*#submitBtn {*/

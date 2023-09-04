@@ -1,0 +1,42 @@
+{
+  "trades": [
+    {
+      "user": "testUser1",
+      "have": [
+        {"wear": "Factory New", "knife": "Karambit", "finish": "Fade"},
+        {"wear": "Minimal Wear", "knife": "M9 Bayonet", "finish": "Crimson Web"},
+        {"wear": "Field-Tested", "knife": "Bayonet", "finish": "Night"},
+        {"wear": "Field-Tested", "knife": "Bayonet", "finish": "Night"},
+        {"wear": "Field-Tested", "knife": "Bayonet", "finish": "Night"}
+      ],
+      "want": [
+        {"wear": "Factory New", "knife": "Bayonet", "finish": "Slaughter"},
+        {"wear": "Minimal Wear", "knife": "Butterfly Knife", "finish": "Stained"},
+        {"wear": "Minimal Wear", "knife": "Flip Knife", "finish": "Blue Steel"},
+        {"wear": "Minimal Wear", "knife": "Flip Knife", "finish": "Blue Steel"},
+        {"wear": "Minimal Wear", "knife": "Flip Knife", "finish": "Blue Steel"}
+      ]
+    },
+    {
+      "user": "testUser2",
+      "have": [
+        {"wear": "Battle-Scarred", "knife": "Huntsman Knife", "finish": "Crimson Web"},
+        {"wear": "Factory New", "knife": "Bowie Knife", "finish": "Damascus Steel"}
+      ],
+      "want": [
+        {"wear": "Minimal Wear", "knife": "Karambit", "finish": "Lore"},
+        {"wear": "Factory New", "knife": "M9 Bayonet", "finish": "Gamma Doppler"}
+      ]
+    },
+    {
+      "user": "testUser3",
+      "have": [
+        {"wear": "Field-Tested", "knife": "Butterfly Knife", "finish": "Fade"}
+      ],
+      "want": [
+        {"wear": "Factory New", "knife": "Karambit", "finish": "Marble Fade"},
+        {"wear": "Factory New", "knife": "Huntsman Knife", "finish": "Tiger Tooth"}
+      ]
+    }
+  ]
+}

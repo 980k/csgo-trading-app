@@ -6,7 +6,25 @@
 
 .trade-grid-item {
     border: .8px solid #dcdcdd;
-    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%; /* Ensure the container takes up the full height of its parent */
+}
+
+.trade-list {
+    padding: 20px 20px 0;
+}
+
+.trade-list ul {
+    list-style-type: square;
+}
+
+.offerBtn {
+    border-top: .8px solid #dcdcdd;
+    background-color: #fff; /* Example background color */
+    color: #000; /* Example text color */
     padding: 10px;
-    height: 200px;
+    text-align: center;
+    cursor: pointer;
 }
