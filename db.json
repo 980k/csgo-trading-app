@@ -1,42 +1,290 @@
 {
   "trades": [
     {
+      "id": 1,
       "user": "testUser1",
       "have": [
-        {"wear": "Factory New", "knife": "Karambit", "finish": "Fade"},
-        {"wear": "Minimal Wear", "knife": "M9 Bayonet", "finish": "Crimson Web"},
-        {"wear": "Field-Tested", "knife": "Bayonet", "finish": "Night"},
-        {"wear": "Field-Tested", "knife": "Bayonet", "finish": "Night"},
-        {"wear": "Field-Tested", "knife": "Bayonet", "finish": "Night"}
+        {
+          "wear": "Factory New",
+          "knife": "Karambit",
+          "finish": "Fade"
+        },
+        {
+          "wear": "Minimal Wear",
+          "knife": "M9 Bayonet",
+          "finish": "Crimson Web"
+        },
+        {
+          "wear": "Field-Tested",
+          "knife": "Bayonet",
+          "finish": "Night"
+        },
+        {
+          "wear": "Field-Tested",
+          "knife": "Bayonet",
+          "finish": "Night"
+        },
+        {
+          "wear": "Field-Tested",
+          "knife": "Bayonet",
+          "finish": "Night"
+        }
       ],
       "want": [
-        {"wear": "Factory New", "knife": "Bayonet", "finish": "Slaughter"},
-        {"wear": "Minimal Wear", "knife": "Butterfly Knife", "finish": "Stained"},
-        {"wear": "Minimal Wear", "knife": "Flip Knife", "finish": "Blue Steel"},
-        {"wear": "Minimal Wear", "knife": "Flip Knife", "finish": "Blue Steel"},
-        {"wear": "Minimal Wear", "knife": "Flip Knife", "finish": "Blue Steel"}
+        {
+          "wear": "Factory New",
+          "knife": "Bayonet",
+          "finish": "Slaughter"
+        },
+        {
+          "wear": "Minimal Wear",
+          "knife": "Butterfly Knife",
+          "finish": "Stained"
+        },
+        {
+          "wear": "Minimal Wear",
+          "knife": "Flip Knife",
+          "finish": "Blue Steel"
+        },
+        {
+          "wear": "Minimal Wear",
+          "knife": "Flip Knife",
+          "finish": "Blue Steel"
+        },
+        {
+          "wear": "Minimal Wear",
+          "knife": "Flip Knife",
+          "finish": "Blue Steel"
+        }
       ]
     },
     {
+      "id": 2,
       "user": "testUser2",
       "have": [
-        {"wear": "Battle-Scarred", "knife": "Huntsman Knife", "finish": "Crimson Web"},
-        {"wear": "Factory New", "knife": "Bowie Knife", "finish": "Damascus Steel"}
+        {
+          "wear": "Battle-Scarred",
+          "knife": "Huntsman Knife",
+          "finish": "Crimson Web"
+        },
+        {
+          "wear": "Factory New",
+          "knife": "Bowie Knife",
+          "finish": "Damascus Steel"
+        }
       ],
       "want": [
-        {"wear": "Minimal Wear", "knife": "Karambit", "finish": "Lore"},
-        {"wear": "Factory New", "knife": "M9 Bayonet", "finish": "Gamma Doppler"}
+        {
+          "wear": "Minimal Wear",
+          "knife": "Karambit",
+          "finish": "Lore"
+        },
+        {
+          "wear": "Factory New",
+          "knife": "M9 Bayonet",
+          "finish": "Gamma Doppler"
+        }
       ]
     },
     {
+      "id": 3,
       "user": "testUser3",
       "have": [
-        {"wear": "Field-Tested", "knife": "Butterfly Knife", "finish": "Fade"}
+        {
+          "wear": "Field-Tested",
+          "knife": "Butterfly Knife",
+          "finish": "Fade"
+        }
       ],
       "want": [
-        {"wear": "Factory New", "knife": "Karambit", "finish": "Marble Fade"},
-        {"wear": "Factory New", "knife": "Huntsman Knife", "finish": "Tiger Tooth"}
+        {
+          "wear": "Factory New",
+          "knife": "Karambit",
+          "finish": "Marble Fade"
+        },
+        {
+          "wear": "Factory New",
+          "knife": "Huntsman Knife",
+          "finish": "Tiger Tooth"
+        }
       ]
+    },
+    {
+      "id": 4,
+      "user": "testUser4",
+      "have": [
+        {
+          "wear": "Factory New",
+          "knife": "Nomad Knife",
+          "finish": "Fade"
+        }
+      ],
+      "want": [
+        {
+          "wear": "Minimal Wear",
+          "knife": "Skeleton Knife",
+          "finish": "Crimson Web"
+        }
+      ]
+    },
+    {
+      "user": "testUser5",
+      "have": [
+        {
+          "wear": "Factory New",
+          "knife": "Nomad Knife",
+          "finish": "Fade"
+        }
+      ],
+      "want": [
+        {
+          "wear": "Minimal Wear",
+          "knife": "Skeleton Knife",
+          "finish": "Crimson Web"
+        }
+      ],
+      "id": 5
+    },
+    {
+      "user": "testUser5",
+      "have": [
+        {
+          "wear": "Factory New",
+          "knife": "Nomad Knife",
+          "finish": "Fade"
+        }
+      ],
+      "want": [
+        {
+          "wear": "Minimal Wear",
+          "knife": "Skeleton Knife",
+          "finish": "Crimson Web"
+        }
+      ],
+      "id": 6
+    },
+    {
+      "user": "testUser5",
+      "have": [
+        {
+          "wear": "Factory New",
+          "knife": "Nomad Knife",
+          "finish": "Fade"
+        }
+      ],
+      "want": [
+        {
+          "wear": "Minimal Wear",
+          "knife": "Skeleton Knife",
+          "finish": "Crimson Web"
+        }
+      ],
+      "id": 7
+    },
+    {
+      "user": "testUser5",
+      "have": [
+        {
+          "wear": "Factory New",
+          "knife": "Nomad Knife",
+          "finish": "Fade"
+        }
+      ],
+      "want": [
+        {
+          "wear": "Minimal Wear",
+          "knife": "Skeleton Knife",
+          "finish": "Crimson Web"
+        }
+      ],
+      "id": 8
+    },
+    {
+      "user": "testUser5",
+      "have": [
+        {
+          "wear": "Factory New",
+          "knife": "Nomad Knife",
+          "finish": "Fade"
+        }
+      ],
+      "want": [
+        {
+          "wear": "Minimal Wear",
+          "knife": "Skeleton Knife",
+          "finish": "Crimson Web"
+        }
+      ],
+      "id": 9
+    },
+    {
+      "user": "testUser5",
+      "have": [
+        {
+          "wear": "Factory New",
+          "knife": "Nomad Knife",
+          "finish": "Fade"
+        }
+      ],
+      "want": [
+        {
+          "wear": "Minimal Wear",
+          "knife": "Skeleton Knife",
+          "finish": "Crimson Web"
+        }
+      ],
+      "id": 10
+    },
+    {
+      "user": "testUser6",
+      "have": [
+        {
+          "wear": "Factory New",
+          "knife": "Survival Knife",
+          "finish": "Fade"
+        }
+      ],
+      "want": [
+        {
+          "wear": "Minimal Wear",
+          "knife": "Skeleton Knife",
+          "finish": "Crimson Web"
+        },
+        {
+          "wear": "Factory New",
+          "knife": "Skeleton Knife",
+          "finish": "Safari Mesh"
+        }
+      ],
+      "id": 11
+    },
+    {
+      "user": "testUser7",
+      "have": [
+        {
+          "wear": "Battle-Scarred",
+          "knife": "Karambit",
+          "finish": "Damascus Steel"
+        },
+        {
+          "wear": "Well-Worn",
+          "knife": "M9 Bayonet",
+          "finish": "Boreal Forest"
+        },
+        {
+          "wear": "Field-Tested",
+          "knife": "Bayonet",
+          "finish": "Blue Steel"
+        }
+      ],
+      "want": [
+        {
+          "wear": "Factory New",
+          "knife": "Karambit",
+          "finish": "Slaughter"
+        }
+      ],
+      "id": 12
     }
   ]
 }

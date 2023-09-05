@@ -39,6 +39,38 @@ export default function Creation() {
     const [haveItems, setHaveItems] = useState([]);
     const [wantItems, setWantItems] = useState([]);
 
+    const postTrade = () => {
+        fetch('http://localhost:4000/api/trades', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                user: 'testUser7',
+                have: haveItems,
+                want: wantItems
+            })
+        })
+            .then((response) => {
+                if(!response.ok) {
+                    throw new Error('Response error encountered.');
+                }
+                return response.json();
+            })
+            .then(() => {
+                setHaveItems([]);
+                setWantItems([]);
+            })
+            .catch((error) => {
+                console.error("Error: ", error);
+            });
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        postTrade();
+    };
+
     function handleAdd(id, data) {
         if(id === 'haveAddBtn') {
             setHaveItems([...haveItems, data]);
@@ -49,10 +81,10 @@ export default function Creation() {
 
     return(
         <div className="creation-container">
-        <form>
+        <form onSubmit={handleSubmit}>
             <h2>Create Trade Offer</h2>
             <fieldset>
-                <legend>Have</legend>
+                <legend><b>Have</b></legend>
                 <label htmlFor="haveWears">Wear</label>
                 <input type="text" id="haveWears" name="haveWears" list="wearOptions" />
                 <datalist id="wearOptions">{renderOptions(inventoryData.wears)}</datalist>
@@ -79,6 +111,8 @@ export default function Creation() {
                     Add
                 </button>
 
+                <div className="have-header"><i>You have ...</i></div>
+
                 <ul>
                     {haveItems.map((item) => {
                         return <li>{item.knife} | {item.finish} ({wearDictionary[item.wear]})</li>;
@@ -89,7 +123,7 @@ export default function Creation() {
             <div className="swap">&#8645;</div>
 
             <fieldset>
-                <legend>Want</legend>
+                <legend><b>Want</b></legend>
                 <label htmlFor="wantWears">Wear</label>
                 <input type="text" id="wantWears" name="wantWears" list="wearOptions" />
                 <datalist id="wearOptions">{renderOptions(inventoryData.wears)}</datalist>
@@ -116,14 +150,16 @@ export default function Creation() {
                     Add
                 </button>
 
+                <div className="want-header"><i>You want ...</i></div>
+
                 <ul>
                     {wantItems.map((item) => {
-                        return <li>{item.wear} {item.knife} {item.finish}</li>;
+                        return <li>{item.knife} | {item.finish} ({wearDictionary[item.wear]})</li>;
                     })}
                 </ul>
             </fieldset>
 
-            <button id="submitBtn">Create</button>
+            <button type="submit" id="submitBtn">Create</button>
         </form>
         </div>
     )
