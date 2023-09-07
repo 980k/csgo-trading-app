@@ -1,23 +1,31 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './Index.css';
 import Filter from "../components/index/Filter";
 import Trades from "../components/index/Trades";
 import Activity from "../components/index/Activity";
 
 export default function Index() {
-    const [data, setData] = useState([]);
-    const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
+    const [ data, setData ] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
+    const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
+    const hasRendered = useRef(false);
 
     const handleCheckboxChange = (selectedItems) => {
         setSelectedCheckboxes(selectedItems);
     };
 
-    useEffect(() => {
-        fetch('http://localhost:4000/api/trades')
-            .then((response) => response.json())
-            .then((data) => setData(data))
-            .catch((error) => console.error('Error fetching data:', error));
+    useEffect( () => {
+        if (!hasRendered.current) {
+            const events = new EventSource('http://localhost:4000/api/trades');
+
+            events.onmessage = (event) => {
+                const parsedData = JSON.parse(event.data);
+
+                setData((data) => data.concat(parsedData));
+            };
+
+            hasRendered.current = true;
+        }
     }, []);
 
     useEffect(() => {
@@ -69,4 +77,40 @@ export default function Index() {
             </div>
         </div>
     )
+
 }
+
+// function App() {
+//     const [ facts, setFacts ] = useState([]);
+//     const [ listening, setListening ] = useState(false);
+//     const hasRendered = useRef(false); // Use a ref to track rendering
+//
+//     useEffect( () => {
+//         if (!hasRendered.current) {
+//             const events = new EventSource('http://localhost:4000/api/trades');
+//
+//             events.onmessage = (event) => {
+//                 const parsedData = JSON.parse(event.data);
+//
+//                 setFacts((facts) => facts.concat(parsedData));
+//             };
+//
+//             hasRendered.current = true;
+//         }
+//     }, []);
+//
+//     return (
+//         <div>
+//             <ul>
+//                 {
+//                     facts.map((fact, index) => (
+//                         <li key={index}>{fact.user}</li>
+//                     ))
+//                 }
+//             </ul>
+//         </div>
+//
+//     );
+// }
+//
+// export default App;
