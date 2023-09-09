@@ -10,6 +10,7 @@ export default function Index() {
     const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
     const hasRendered = useRef(false);
 
+
     const handleCheckboxChange = (selectedItems) => {
         setSelectedCheckboxes(selectedItems);
     };

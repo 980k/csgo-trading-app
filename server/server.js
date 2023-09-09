@@ -1,12 +1,19 @@
 const express = require('express');
 const cors = require('cors');
 const fs = require('fs');
+const user = require("./routes/userRoutes");
+const mongoose = require("mongoose");
 
 const app = express();
+
+const MONGOURI = "mongodb://accAdmin:accPswd123@localhost:27017/user_accounts";
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
+app.use("/user", user);
+
+const User = require("./schemas/User");
 
 app.get('/status', (request, response) => response.json({clients: clients.length}));
 
@@ -14,9 +21,20 @@ const PORT = 4000;
 
 let clients = [];
 
-app.listen(PORT, () => {
-    console.log(`Facts Events service listening at http://localhost:${PORT}`)
-})
+// app.listen(PORT, () => {
+//     console.log(`Facts Events service listening at http://localhost:${PORT}`)
+// })
+
+mongoose.connect(MONGOURI)
+    .then(() => {
+        console.log("Connected to MDB");
+        app.listen(PORT, () => {
+            console.log(`Node is running on port ${PORT}`);
+        });
+    })
+    .catch((error) => {
+        console.log(error);
+    });
 
 function eventsHandler(request, response, next) {
     const headers = {
@@ -48,7 +66,6 @@ function eventsHandler(request, response, next) {
 }
 
 app.get('/api/trades', eventsHandler);
-// ...
 
 function sendEventsToAll(newTrade) {
     clients.forEach(client => client.response.write(`data: ${JSON.stringify(newTrade)}\n\n`))
@@ -77,3 +94,25 @@ async function addTrade(request, response, next) {
 }
 
 app.post('/api/trades', addTrade);
+
+// users database CRUD methods
+app.get("/user", async (req, res) => {
+    try {
+        const users = await User.find();
+        res.json(users);
+    } catch (error) {
+        res.status(500).json({ error: "Failed to retrieve users" });
+    }
+});
+
+app.get("/user/:id", async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id);
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+        res.json(user);
+    } catch (error) {
+        res.status(500).json({ error: "Failed to retrieve user" });
+    }
+});
