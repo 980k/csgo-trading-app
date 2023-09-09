@@ -30,17 +30,17 @@
     padding: 0.25em 0.5em;
 }
 
-.navbar-login {
+.navbar-login-logout {
     margin-left: auto;
     padding: 0.25em 0.5em;
 }
 
-.login-link {
+.log-link {
     color: #6d6d6d;
     text-decoration: none;
 }
 
-.login-link:hover {
+.log-link:hover {
     color: #000;
 }
 

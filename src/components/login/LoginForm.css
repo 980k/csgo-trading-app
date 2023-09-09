@@ -15,6 +15,7 @@
 .login-elements input {
     display: block;
     margin: 20px;
+    padding-left: 5px;
     width: 250px;
     height: 30px;
     border: none;
@@ -28,6 +29,12 @@
     border-top: 1px solid #dcdcdd;
     background-color: #fff;
     margin-top: 20px;
+}
+
+.error {
+    text-align: center;
+    color: red;
+    font-size: .7em;
 }
 
 

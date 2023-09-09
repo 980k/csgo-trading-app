@@ -12,7 +12,6 @@ const AuthProvider = ({ children }) => {
 
     const logout = () => {
         setIsAuthenticated(false);
-        sessionStorage.removeItem('isAuthenticated');
     };
 
     return (

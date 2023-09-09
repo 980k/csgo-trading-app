@@ -10,7 +10,6 @@ export default function Index() {
     const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
     const hasRendered = useRef(false);
 
-
     const handleCheckboxChange = (selectedItems) => {
         setSelectedCheckboxes(selectedItems);
     };
@@ -80,38 +79,3 @@ export default function Index() {
     )
 
 }
-
-// function App() {
-//     const [ facts, setFacts ] = useState([]);
-//     const [ listening, setListening ] = useState(false);
-//     const hasRendered = useRef(false); // Use a ref to track rendering
-//
-//     useEffect( () => {
-//         if (!hasRendered.current) {
-//             const events = new EventSource('http://localhost:4000/api/trades');
-//
-//             events.onmessage = (event) => {
-//                 const parsedData = JSON.parse(event.data);
-//
-//                 setFacts((facts) => facts.concat(parsedData));
-//             };
-//
-//             hasRendered.current = true;
-//         }
-//     }, []);
-//
-//     return (
-//         <div>
-//             <ul>
-//                 {
-//                     facts.map((fact, index) => (
-//                         <li key={index}>{fact.user}</li>
-//                     ))
-//                 }
-//             </ul>
-//         </div>
-//
-//     );
-// }
-//
-// export default App;

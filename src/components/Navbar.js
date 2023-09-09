@@ -8,10 +8,9 @@ export default function Navbar() {
     const navigate = useNavigate();
 
     const handleLogout = () => {
-        // Perform any logout-related tasks (e.g., clearing session storage)
-        sessionStorage.removeItem('auth_token');
+        sessionStorage.clear();
         authContext.logout();
-        navigate('/login'); // Redirect to the login page after logout
+        navigate('/login');
     };
 
     return (
@@ -38,11 +37,11 @@ export default function Navbar() {
                     </li>
                 </ul>
             </nav>
-            <div className="navbar-login">
+            <div className="navbar-login-logout">
                 {
                     authContext.isAuthenticated ?
-                        (<NavLink to="/logout" className="logout-link">Logout</NavLink>) :
-                        (<NavLink to="/login" className="login-link">Login</NavLink>)
+                        (<NavLink to="/login" className="log-link" onClick={handleLogout}>Logout</NavLink>) :
+                        (<NavLink to="/login" className="log-link">Login</NavLink>)
                 }
             </div>
         </header>

@@ -11,7 +11,6 @@ export default function LoginForm() {
         const auth_token = sessionStorage.getItem('auth_token');
         if(auth_token !== null) {
             console.log('Auth token present');
-            authContext.login();
             redirect(auth_token);
         } else {
             console.log('No Auth token present');
@@ -78,7 +77,7 @@ export default function LoginForm() {
         <form onSubmit={handleSubmit}>
             <div className="login-elements">
                 <input type="text" id="username" name="username" placeholder="Username" />
-                <input type="text" id="password" name="password" placeholder="Password" />
+                <input type="password" id="password" name="password" placeholder="Password" />
                 <div className="error" id="error-text"></div>
             </div>
             <button className="login-button">Log In</button>
