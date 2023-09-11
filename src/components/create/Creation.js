@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import jwtDecode from 'jwt-decode';
 import './Creation.css'
 
 const inventoryData = {
@@ -35,6 +36,12 @@ function renderOptions(options) {
     ));
 }
 
+function getUserId() {
+    const auth_token = sessionStorage.getItem('auth_token');
+    const decoded = jwtDecode(auth_token);
+    return decoded.user.id;
+}
+
 export default function Creation() {
     const [haveItems, setHaveItems] = useState([]);
     const [wantItems, setWantItems] = useState([]);
@@ -46,7 +53,7 @@ export default function Creation() {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                user: 'testUser7',
+                userId: getUserId(),
                 have: haveItems,
                 want: wantItems
             })

@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "user": "testUser4",
+    "user": "testuser1",
     "have": [
       {
         "wear": "Field-Tested",
@@ -20,127 +20,11 @@
         "knife": "Flip Knife",
         "finish": "Lore"
       }
-    ]
-  },
-  {
-    "id": 2,
-    "user": "newUser",
-    "have": [
-      {
-        "wear": "Factory New",
-        "knife": "Karambit",
-        "finish": "Tiger Tooth"
-      }
     ],
-    "want": [
-      {
-        "wear": "Field-Tested",
-        "knife": "Butterfly Knife",
-        "finish": "Crimson Web"
-      }
-    ]
-  },
-  {
-    "id": 3,
-    "user": "anotherUser",
-    "have": [
-      {
-        "wear": "Minimal Wear",
-        "knife": "Karambit",
-        "finish": "Fade"
-      }
-    ],
-    "want": [
-      {
-        "wear": "Factory New",
-        "knife": "Gut Knife",
-        "finish": "Doppler"
-      },
-      {
-        "wear": "Field-Tested",
-        "knife": "Huntsman Knife",
-        "finish": "Marble Fade"
-      }
-    ]
-  },
-  {
-    "id": 4,
-    "user": "anotherUser",
-    "have": [
-      {
-        "wear": "Minimal Wear",
-        "knife": "M9 Bayonet",
-        "finish": "Doppler"
-      }
-    ],
-    "want": [
-      {
-        "wear": "Factory New",
-        "knife": "Gut Knife",
-        "finish": "Marble Fade"
-      },
-      {
-        "wear": "Field-Tested",
-        "knife": "Huntsman Knife",
-        "finish": "Sapphire"
-      }
-    ]
-  },
-  {
-    "id": 5,
-    "user": "yetAnotherUser",
-    "have": [
-      {
-        "wear": "Field-Tested",
-        "knife": "Karambit",
-        "finish": "Slaughter"
-      }
-    ],
-    "want": [
-      {
-        "wear": "Minimal Wear",
-        "knife": "Butterfly Knife",
-        "finish": "Fade"
-      },
-      {
-        "wear": "Factory New",
-        "knife": "Bayonet",
-        "finish": "Doppler"
-      }
-    ]
-  },
-  {
-    "user": "testUser7",
-    "have": [
-      {
-        "wear": "Minimal Wear",
-        "knife": "Classic Knife",
-        "finish": "Boreal Forest"
-      }
-    ],
-    "want": [
-      {
-        "wear": "Well-Worn",
-        "knife": "Paracord Knife",
-        "finish": "Black Laminate"
-      }
-    ]
-  },
-  {
-    "user": "testUser7",
-    "have": [
-      {
-        "wear": "Factory New",
-        "knife": "Stiletto Knife",
-        "finish": "Doppler (Black Pearl)"
-      }
-    ],
-    "want": [
-      {
-        "wear": "Factory New",
-        "knife": "Stiletto Knife",
-        "finish": "Gamma Doppler (Emerald)"
-      }
-    ]
+    "incoming" : {
+      "user" : "testuser2",
+      "have" : [{"wear" :  "Field-Tested", "knife":  "Flip Knife", "finish":  "Lore"}],
+      "want" : [{"wear" :  "Field-Tested", "knife": "Bayonet", "finish" :  "Doppler"}]
+    }
   }
 ]

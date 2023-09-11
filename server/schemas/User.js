@@ -8,7 +8,15 @@ const UserSchema = mongoose.Schema({
     password: {
         type: String,
         required: true
-    }
+    },
+    createdTrades: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Trade"
+    }],
+    createdOffers: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Offer"
+    }]
 });
 
 module.exports = mongoose.model("User", UserSchema);
