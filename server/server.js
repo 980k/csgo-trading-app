@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const user = require("./routes/userRoutes");
 const trade = require("./routes/tradeRoutes");
+const offer = require("./routes/offerRoutes");
 const mongoose = require("mongoose");
 
 const app = express();
@@ -14,9 +15,11 @@ app.use(express.urlencoded({extended: false}));
 
 app.use("/user", user);
 app.use("/", trade);
+app.use("/offers", offer);
 
 const User = require("./schemas/User");
-const Trade = require("./schemas/Trade")
+const Trade = require("./schemas/Trade");
+const Offer = require("./schemas/Offer");
 
 const PORT = 4000;
 

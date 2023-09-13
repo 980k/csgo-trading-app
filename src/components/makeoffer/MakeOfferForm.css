@@ -1,0 +1,23 @@
+.trade-offer-container {
+    max-width: 65vh; /* Set a maximum width for the form */
+    margin-top: 5vh;
+    margin-bottom: 2vh;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px; /* Add padding for spacing inside the form */
+    border: 1px solid #dcdcdd;
+
+}
+
+.your-offer-container {
+    max-width: 65vh; /* Set a maximum width for the form */
+    margin-top: 2vh;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px; /* Add padding for spacing inside the form */
+    border: 1px solid #dcdcdd;
+}
+
+.down-arrow {
+    text-align: center;
+}

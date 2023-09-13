@@ -5,7 +5,7 @@ import Index from './pages/Index';
 import Offers from "./pages/Offers";
 import Create from "./pages/Create";
 import Login from "./pages/Login";
-import Logout from "./pages/Logout";
+import MakeOffer from "./pages/MakeOffer";
 import AuthProvider from "./context/AuthProvider";
 
 export default function App() {
@@ -18,7 +18,7 @@ export default function App() {
                     <Route path='/offers' element={<Offers />} />
                     <Route path='/create' element={<Create />} />
                     <Route path='/login' element={<Login />} />
-                    {/*<Route path='/logout' element={<Logout />} />*/}
+                    <Route path='offers/:_id' element={<MakeOffer />} />
                 </Routes>
             </AuthProvider>
         </Router>

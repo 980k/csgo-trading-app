@@ -1,5 +1,6 @@
 const express = require('express');
 const Trade = require("../schemas/Trade");
+const User = require('../schemas/User');
 
 const router = express.Router();
 
@@ -54,9 +55,14 @@ async function addTrade(request, response, next) {
     const newTrade = request.body;
 
     try {
-        // Assuming "Trade" is a Mongoose model, create a new trade document and save it to MongoDB
         const tradeDocument = new Trade(newTrade);
         await tradeDocument.save();
+
+        const tradeId = tradeDocument._id;
+
+        const userId = newTrade.userId;
+
+        await User.findByIdAndUpdate(userId, { $push: { createdTrades: tradeId } });
 
         response.json(newTrade);
         sendEventsToAll(newTrade);
@@ -65,5 +71,17 @@ async function addTrade(request, response, next) {
         response.status(500).end('Internal Server Error');
     }
 }
+
+router.get('/api/trades/:_id', async(req, res) => {
+    const id = req.params._id;
+
+    try {
+        const trade = await Trade.find({_id: id});
+        res.json(trade);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'An error occurred while fetching data.'})
+    }
+})
 
 module.exports = router;

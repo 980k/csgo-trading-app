@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
 import { convertWear } from "../utilities/Utilities";
 import './Trades.css';
 
 export default function Trades({ data }) {
 
     const gridItems = data.map((trade, index) => (
-        <div className="trade-grid-item">
+        <div key={trade._id} className="trade-grid-item">
 
             <div className="trade-list">
         <div><b>[H]</b>ave</div>
@@ -27,7 +28,10 @@ export default function Trades({ data }) {
         </ul>
         </div>
 
-        <div className="offerBtn">Make Offer</div>
+            <NavLink to={`/offers/${trade._id}`} key={trade._id}>
+                <div className="offerBtn">Make Offer</div>
+            </NavLink>
+        {/*<div className="offerBtn">Make Offer</div>*/}
     </div>
     ));
 
