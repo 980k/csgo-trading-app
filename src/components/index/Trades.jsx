@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { convertWear } from "../utilities/Utilities";
-import './Trades.css';
+import { convertWear } from "../../utilities/Utilities";
+import '../../styles/components/Trades.css';
 
 export default function Trades({ data }) {
 
@@ -28,10 +28,9 @@ export default function Trades({ data }) {
         </ul>
         </div>
 
-            <NavLink to={`/offers/${trade._id}`} key={trade._id}>
+            <NavLink to={`/offers/${trade._id}`} key={trade._id} className="navlink-offer-btn">
                 <div className="offerBtn">Make Offer</div>
             </NavLink>
-        {/*<div className="offerBtn">Make Offer</div>*/}
     </div>
     ));
 

@@ -2,7 +2,7 @@ import React, { useEffect, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
 import jwtDecode from 'jwt-decode';
-import './LoginForm.css'
+import '../../styles/components/LoginForm.css'
 
 export default function LoginForm() {
     const authContext = useContext(AuthContext);

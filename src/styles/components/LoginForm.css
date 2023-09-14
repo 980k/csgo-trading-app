@@ -27,8 +27,9 @@
     width: 300px;
     border: none;
     border-top: 1px solid #dcdcdd;
-    background-color: #fff;
+    background-color: #f3f3f4;
     margin-top: 20px;
+    cursor: pointer;
 }
 
 .error {

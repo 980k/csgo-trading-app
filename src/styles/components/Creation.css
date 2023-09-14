@@ -1,8 +1,8 @@
 .creation-container {
     text-align: center; /* Center horizontally */
-    max-width: 65vh; /* Set a maximum width for the form */
+    max-width: 70vh; /* Set a maximum width for the form */
     margin: 10vh auto; /* Center horizontally */
-    padding: 20px; /* Add padding for spacing inside the form */
+    padding-top: 20px; /* Add padding for spacing inside the form */
     border: 1px solid #dcdcdd; /* Optional: Add a border for styling */
 }
 
@@ -39,6 +39,9 @@
 
 .creation-container fieldset {
     border: 1px solid #dcdcdd;
+    margin-left: 20px;
+    margin-right: 20px;
+
 }
 
 .creation-container button {
@@ -47,5 +50,12 @@
 }
 
 #submitBtn {
-    margin-top: 1em;
+    width: 100%;
+    margin-top: 20px;
+    border: none;
+    border-top: 1px solid #dcdcdd;
+    padding: 10px;
+    cursor: pointer;
+    background-color: #f3f3f4;
+    font-size: 1em;
 }

@@ -5,7 +5,7 @@
 }
 
 .trade-grid-item {
-    border: .8px solid #dcdcdd;
+    border: .9px solid #dcdcdd;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -22,9 +22,13 @@
 
 .offerBtn {
     border-top: .8px solid #dcdcdd;
-    background-color: #fff; /* Example background color */
+    background-color: #f3f3f4; /* Example background color */
     color: #000; /* Example text color */
     padding: 10px;
     text-align: center;
     cursor: pointer;
+}
+
+.navlink-offer-btn {
+    text-decoration: none;
 }

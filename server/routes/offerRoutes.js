@@ -5,18 +5,32 @@ const User = require("../schemas/User");
 
 const router = express.Router();
 
-router.get('/incoming/:userId', async(req, res) => {
+router.get('/all/:userId', async(req, res) => {
     const userId = req.params.userId;
 
     try {
-        const trades = await Trade.find({ userId: userId});
+        const trades = await Trade.find({ userId: userId });
         const tradeOffers = [];
+        const associatedTrades = [];
+
         for (const trade of trades) {
             const offers = await Offer.find({ _id: { $in: trade.offers } });
             tradeOffers.push({ trade, offers });
         }
 
-        res.json(tradeOffers);
+        const offers = await Offer.find({ userId: userId });
+        for (const offer of offers) {
+            const trade = await Trade.findOne({ _id: offer.tradeId });
+            associatedTrades.push({ offer, trade });
+        }
+
+        const combinedData = {
+            tradeOffers: tradeOffers,
+            associatedTrades: associatedTrades,
+        };
+
+        res.json(combinedData);
+
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'An error occurred while fetching data.' });

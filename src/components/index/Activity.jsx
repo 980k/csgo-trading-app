@@ -1,5 +1,5 @@
 import React from 'react';
-import './Activity.css'
+import '../../styles/components/Activity.css'
 
 export default function Activity() {
     return(

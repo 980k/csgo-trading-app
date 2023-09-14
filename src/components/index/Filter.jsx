@@ -1,13 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import './Filter.css';
-
-const items = [
-    'Bayonet', 'Bowie Knife', 'Butterfly Knife', 'Classic Knife',
-    'Falchion Knife', 'Flip Knife', 'Gut Knife', 'Huntsman Knife',
-    'Karambit', 'M9 Bayonet', 'Navaja Knife', 'Nomad Knife',
-    'Paracord Knife', 'Shadow Daggers', 'Skeleton Knife',
-    'Stiletto Knife', 'Survival Knife', 'Talon Knife', 'Ursus Knife'
-];
+import { itemsData } from "../../objects/commonObjects";
+import '../../styles/components/Filter.css';
 
 export default function Filter({ selectedCount, onCheckboxChange }) {
     const [selectedItems, setSelectedItems] = useState([]);
@@ -17,7 +10,7 @@ export default function Filter({ selectedCount, onCheckboxChange }) {
     }, [selectedItems, onCheckboxChange]);
 
     const handleCheckboxChange = (index) => {
-        const selectedItem = items[index];
+        const selectedItem = itemsData.knives[index];
         setSelectedItems((prevSelectedItems) => {
             if (prevSelectedItems.includes(selectedItem)) {
                 return prevSelectedItems.filter(item => item !== selectedItem);
@@ -38,7 +31,7 @@ export default function Filter({ selectedCount, onCheckboxChange }) {
             </header>
 
             <ul>
-                {items.map((item, index) => (
+                {itemsData.knives.map((item, index) => (
                     <li key={index}>
                         <input
                             type="checkbox"
