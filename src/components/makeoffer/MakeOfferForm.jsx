@@ -18,7 +18,6 @@ export default function MakeOfferForm({ tradeData }) {
                 userId: getUserId(),
                 offered: haveItems,
                 for: forItems,
-                status: 'Active'
             })
         })
             .then((response) => {

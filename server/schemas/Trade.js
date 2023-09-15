@@ -19,16 +19,21 @@ const TradeSchema = mongoose.Schema({
             finish: String
         }
     ],
-    createdAt: {
-        type: Date,
-        default: Date.now
-    },
     offers: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Offer"
         }
-    ]
+    ],
+    createdAt: {
+        type: Date,
+        default: Date.now
+    },
+    status: {
+        type: String,
+        enum: ["active", "inactive"],
+        default: "active"
+    }
 });
 
 module.exports = mongoose.model("Trade", TradeSchema);

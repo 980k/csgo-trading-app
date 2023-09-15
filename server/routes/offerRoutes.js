@@ -57,4 +57,21 @@ router.post('/newoffer', async(req, res) => {
 
 })
 
+router.post('/update/:_id', async(req, res) => {
+    const id = req.params._id;
+    const newStatus = req.body.status;
+
+    try {
+        const updatedOffer = await Offer.findByIdAndUpdate(id, { status: newStatus });
+
+        if (!updatedOffer) {
+            return res.status(404).json({ message: 'Offer not found' });
+        }
+
+        return res.status(200).json({ message: 'Offer updated successfully', updatedOffer });
+    } catch (error) {
+        return res.status(500).json({ message: 'Internal server error', error: error.message });
+    }
+})
+
 module.exports = router;

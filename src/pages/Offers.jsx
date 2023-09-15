@@ -4,7 +4,7 @@ import { getUserId } from "../utilities/Utilities";
 import '../styles/pages/Offers.css';
 
 export default function Offers() {
-    const [data, setData] = useState({
+    const [offerData, setOfferData] = useState({
         tradeOffers: [],
         associatedTrades: [],
     });
@@ -12,7 +12,7 @@ export default function Offers() {
     useEffect(() => {
         const auth_token = sessionStorage.getItem('auth_token');
 
-        if(!auth_token) {
+        if (!auth_token) {
             return;
         }
 
@@ -20,19 +20,52 @@ export default function Offers() {
 
         fetch(`http://localhost:4000/offers/all/${userId}`)
             .then((response) => response.json())
-            .then((data) => setData(data))
+            .then((newData) => {
+                // Update the offerData state with the new data
+                setOfferData(newData);
+            })
             .catch((error) => console.error('Error fetching data:', error));
-    }, [])
+    }, []);
 
-    return(
-            <div className="offer-grid-container">
-                <div className="incoming-tab">
-                    <IncomingOffers data={data.tradeOffers} />
-                </div>
+    // Function to update the offer status and fetch updated data
+    const handleDeclineOffer = (offerId) => {
+        // Make a network request to update the offer status in the database
+        fetch(`http://localhost:4000/offers/update/${offerId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                status: "declined"
+            })
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Response error encountered.');
+                }
+                // After successfully updating the status, fetch the updated data
+                return fetch(`http://localhost:4000/offers/all/${getUserId()}`);
+            })
+            .then((response) => response.json())
+            .then((newData) => {
+                // Update the offerData state with the updated data
+                setOfferData(newData);
+            })
+            .catch((error) => {
+                console.error("Error: ", error);
+            });
+    };
 
-                <div className="outgoing-tab">
-                    <OutgoingOffers data={data.associatedTrades} />
-                </div>
+    return (
+        <div className="offer-grid-container">
+            <div className="incoming-tab">
+                {/* Pass the offerData state and the decline handler to IncomingOffers */}
+                <IncomingOffers data={offerData.tradeOffers} onDeclineOffer={handleDeclineOffer} />
             </div>
+
+            <div className="outgoing-tab">
+                <OutgoingOffers data={offerData.associatedTrades} />
+            </div>
+        </div>
     );
 }

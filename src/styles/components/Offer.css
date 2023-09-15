@@ -55,8 +55,42 @@
     margin-right: 20px
 }
 
+.label-header {
+    display: flex;
+    justify-content: space-between;
+}
 
+.status {
+    margin-left: auto;
+    font-size: .75em;
+}
 
+.action {
+    border:none;
+    background-color: #ffffff;
+    font-size: 0.7em;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.button-container {
+    display: flex;
+    justify-content: flex-end; /* Move the buttons to the right within the container */
+}
+
+#accept-btn {
+    border-right: .5px solid #000000;
+}
+
+#decline-btn {
+    border-left: .5px solid #000000;
+}
+
+.offer-status {
+    font-size: 0.7em;
+    display: flex;
+    justify-content: flex-end; /* Move the buttons to the right within the container */
+}
 
 
 
