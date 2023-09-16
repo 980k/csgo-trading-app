@@ -1,7 +1,11 @@
 import React from 'react';
 import '../../styles/components/Activity.css'
+import {convertWear} from "../../utilities/Utilities";
 
-export default function Activity() {
+export default function Activity({ data }) {
+
+    const acceptedData = data.filter((item) => item.status === 'accepted');
+
     return(
         <div className="activity">
             <header>
@@ -13,46 +17,33 @@ export default function Activity() {
                     <th>Time</th>
                     <th>Trade</th>
                 </tr>
-                <tr>
-                    <td>5m</td>
-                    <td> Karambit Fade (FN) &#x2194; M9 Bayonet Fade (FN) </td>
-                </tr>
-                <tr>
-                    <td>10m</td>
-                    <td> Butterfly Knife Slaughter (FN) &#x2194; Butterfly K... </td>
-                </tr>
-                <tr>
-                    <td>30m</td>
-                    <td> Bayonet Tiger Tooth (FN) &#x2194; Flip Knife Dop... </td>
-                </tr>
-                <tr>
-                    <td>45m</td>
-                    <td> Stiletto Knife Crimson Web (FN) &#x2194; Nomad ... </td>
-                </tr>
-                <tr>
-                    <td>1h</td>
-                    <td> Talon Knife Marble Fade (FN) &#x2194; Skeleton K... </td>
-                </tr>
-                <tr>
-                    <td>2h</td>
-                    <td> Karambit Fade (FN) &#x2194; M9 Bayonet Fade (FN) </td>
-                </tr>
-                <tr>
-                    <td>2.5h</td>
-                    <td> Butterfly Knife Slaughter (FN) &#x2194; Butterfly K... </td>
-                </tr>
-                <tr>
-                    <td>3h</td>
-                    <td> Bayonet Tiger Tooth (FN) &#x2194; Flip Knife Dop... </td>
-                </tr>
-                <tr>
-                    <td>5h</td>
-                    <td> Stiletto Knife Crimson Web (FN) &#x2194; Nomad ... </td>
-                </tr>
-                <tr>
-                    <td>10h</td>
-                    <td> Talon Knife Marble Fade (FN) &#x2194; Skeleton K... </td>
-                </tr>
+
+                <tbody>
+                {acceptedData.map((offer) => (
+                    <tr key={offer.id}>
+                        <td>5m</td>
+
+                        <td>
+                            {offer.offered.map((offeredItem, index) => (
+                                <span key={index}>{`${offeredItem.knife} ${offeredItem.finish} (${convertWear(offeredItem.wear)})`}</span>
+                            ))}
+
+                            &#x2194;
+
+                            {offer.for.map((acceptedItem, index) => (
+                                <span key={index}>{`${acceptedItem.knife} ${acceptedItem.finish} (${convertWear(acceptedItem.wear)})`}</span>
+                            ))}
+                        </td>
+                        {/*<td>*/}
+                        {/*    {offer.for.map((acceptedItem, index) => (*/}
+                        {/*        <span key={index}>{`${acceptedItem.knife} ${acceptedItem.finish} (${convertWear(acceptedItem.wear)})`}</span>*/}
+                        {/*    ))}*/}
+                        {/*</td>*/}
+                    </tr>
+                ))}
+                </tbody>
+
+
             </table>
         </div>
     );

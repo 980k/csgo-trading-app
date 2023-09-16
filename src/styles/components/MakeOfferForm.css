@@ -10,14 +10,50 @@
 }
 
 .your-offer-container {
-    max-width: 65vh; /* Set a maximum width for the form */
+    max-width: 70vh; /* Set a maximum width for the form */
     margin-top: 2vh;
     margin-left: auto;
     margin-right: auto;
-    padding: 20px; /* Add padding for spacing inside the form */
+    /* Add padding for spacing inside the form */
+    padding: 20px 0 0;
     border: 1px solid #dcdcdd;
+}
+
+.your-offer-container fieldset {
+    border: 1px solid #dcdcdd;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.your-offer-container input {
+    border: none;
+    border-bottom: 1px solid #dcdcdd; /* Optional: Add a border for styling */
+    margin-right: 5px;
+}
+
+.your-offer-container button {
+    background-color: #fff;
+    border: 1px solid #dcdcdd;
+}
+
+.your-offer-container ul, .your-offer-container h2 {
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 .down-arrow {
     text-align: center;
+    font-size: 25px;
+}
+
+#submitOfferBtn {
+    width: 100%;
+    margin-top: 10px;
+    border: none;
+    border-top: 1px solid #dcdcdd;
+    padding: 10px;
+    cursor: pointer;
+    background-color: #f3f3f4;
+    font-size: 1em;
+
 }

@@ -33,6 +33,11 @@ const TradeSchema = mongoose.Schema({
         type: String,
         enum: ["active", "inactive"],
         default: "active"
+    },
+    acceptedOffer: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Offer",
+        default: null
     }
 });
 

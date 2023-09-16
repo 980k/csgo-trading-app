@@ -27,10 +27,19 @@ export default function Trades({ data }) {
             ))}
         </ul>
         </div>
+            {
+                (trade.status === "active") ?
+                    (
+                        <NavLink to={`/offers/${trade._id}`} key={trade._id} className="navlink-offer-btn">
+                            <div className="offerBtn">Make Offer</div>
+                        </NavLink>
+                    ) :
+                    (<div className="completed">Completed</div>)
+            }
 
-            <NavLink to={`/offers/${trade._id}`} key={trade._id} className="navlink-offer-btn">
-                <div className="offerBtn">Make Offer</div>
-            </NavLink>
+            {/*<NavLink to={`/offers/${trade._id}`} key={trade._id} className="navlink-offer-btn">*/}
+            {/*    <div className="offerBtn">Make Offer</div>*/}
+            {/*</NavLink>*/}
     </div>
     ));
 

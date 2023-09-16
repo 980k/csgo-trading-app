@@ -56,11 +56,57 @@ export default function Offers() {
             });
     };
 
+    const handleAcceptOffer = (tradeId, offerId) => {
+        fetch(`http://localhost:4000/api/trades/${tradeId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                acceptedOffer: offerId,
+                offerStatus: "accepted",
+                tradeStatus: "inactive"
+            })
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Response error encountered.');
+                }
+                return fetch(`http://localhost:4000/offers/all/${getUserId()}`);
+            })
+            .then((response) => response.json())
+            .then((newData) => {
+                setOfferData(newData);
+            })
+            .catch((error) => {
+                console.error("Error: ", error);
+            });
+
+        fetch(`http://localhost:4000/offers/update/${offerId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                status: "accepted"
+            })
+        })
+            .then((response) => {
+                if(!response.ok) {
+                    throw new Error('Response error encountered.');
+                }
+                return response.json();
+            })
+            .catch((error) => {
+                console.error("Error: ", error);
+            });
+    };
+
     return (
         <div className="offer-grid-container">
             <div className="incoming-tab">
                 {/* Pass the offerData state and the decline handler to IncomingOffers */}
-                <IncomingOffers data={offerData.tradeOffers} onDeclineOffer={handleDeclineOffer} />
+                <IncomingOffers data={offerData.tradeOffers} onDeclineOffer={handleDeclineOffer} onAcceptOffer={handleAcceptOffer} />
             </div>
 
             <div className="outgoing-tab">

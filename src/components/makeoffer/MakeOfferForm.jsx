@@ -116,9 +116,7 @@ export default function MakeOfferForm({ tradeData }) {
                         ))
                     }
                 </ul>
-
                     <button type="submit" id="submitOfferBtn">Make Offer</button>
-
                 </form>
             </div>
         </div>

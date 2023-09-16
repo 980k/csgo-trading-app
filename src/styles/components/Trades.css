@@ -32,3 +32,11 @@
 .navlink-offer-btn {
     text-decoration: none;
 }
+
+.completed {
+    border-top: .8px solid #dcdcdd;
+    background-color: #fff; /* Example background color */
+    color: #000; /* Example text color */
+    padding: 10px;
+    text-align: center;
+}

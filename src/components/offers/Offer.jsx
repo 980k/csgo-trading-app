@@ -1,7 +1,8 @@
 import React from 'react';
+import { convertWear} from "../../utilities/Utilities";
 import '../../styles/components/Offer.css'
 
-export function IncomingOffers({ data, onDeclineOffer }) {
+export function IncomingOffers({ data, onDeclineOffer, onAcceptOffer }) {
     return (
         <div className="incoming-component">
             <h2>Incoming Offers &darr;</h2>
@@ -14,7 +15,7 @@ export function IncomingOffers({ data, onDeclineOffer }) {
                             {/* Render the 'item.trade.have' data */}
                             <ul>
                                 {item.trade.have.map((haveItem) => (
-                                    <li key={haveItem._id}>{`${haveItem.wear} ${haveItem.knife} ${haveItem.finish}`}</li>
+                                    <li key={haveItem._id}>{`${haveItem.knife} ${haveItem.finish} (${convertWear(haveItem.wear)})`}</li>
                                 ))}
                             </ul>
 
@@ -22,7 +23,7 @@ export function IncomingOffers({ data, onDeclineOffer }) {
                             {/* Render the 'item.trade.want' data */}
                             <ul>
                                 {item.trade.want.map((wantItem) => (
-                                    <li key={wantItem._id}>{`${wantItem.wear} ${wantItem.knife} ${wantItem.finish}`}</li>
+                                    <li key={wantItem._id}>{`${wantItem.knife} ${wantItem.finish} (${convertWear(wantItem.wear)})`}</li>
                                 ))}
                             </ul>
                         </div>
@@ -31,7 +32,7 @@ export function IncomingOffers({ data, onDeclineOffer }) {
                             {/* Render the 'offer.offered' data */}
                             <ul>
                                 {offer.offered.map((offeredItem) => (
-                                    <li key={offeredItem._id}>{`${offeredItem.wear} ${offeredItem.knife} ${offeredItem.finish}`}</li>
+                                    <li key={offeredItem._id}>{`${offeredItem.knife} ${offeredItem.finish} (${convertWear(offeredItem.wear)})`}</li>
                                 ))}
                             </ul>
 
@@ -39,14 +40,18 @@ export function IncomingOffers({ data, onDeclineOffer }) {
                             {/* Render the 'offer.for' data */}
                             <ul>
                                 {offer.for.map((forItem) => (
-                                    <li key={forItem._id}>{`${forItem.wear} ${forItem.knife} ${forItem.finish}`}</li>
+                                    <li key={forItem._id}>{`${forItem.knife} ${forItem.finish} (${convertWear(forItem.wear)})`}</li>
                                 ))}
                             </ul>
                         </div>
                         {
                             offer.status === "pending" ? (
                                 <div className="button-container">
-                                    <button className="action" id="accept-btn">Accept</button>
+                                    <button className="action"
+                                            id="accept-btn"
+                                            onClick={() => onAcceptOffer(offer.tradeId, offer._id)}
+                                    >Accept
+                                    </button>
                                     <button
                                         className="action"
                                         id="decline-btn"
@@ -60,7 +65,7 @@ export function IncomingOffers({ data, onDeclineOffer }) {
                                     {offer.status === "declined" ? (
                                         <span><i>Trade Declined</i></span>
                                     ) : (
-                                        <span>Trade Accepted</span>
+                                        <span><i>Trade Accepted</i></span>
                                     )}
                                 </div>
                             )
@@ -86,7 +91,7 @@ export function OutgoingOffers({ data }) {
                         </div>
                         <ul>
                             {entry.offer.offered.map((offerItem) => (
-                                <li key={offerItem._id}>{offerItem.wear} {offerItem.knife} {offerItem.finish}</li>
+                                <li key={offerItem._id}>{`${offerItem.knife} ${offerItem.finish} (${convertWear(offerItem.wear)})`}</li>
                             ))}
                         </ul>
                         <div className="label-header">
@@ -95,7 +100,7 @@ export function OutgoingOffers({ data }) {
 
                         <ul>
                             {entry.offer.for.map((forItem) => (
-                                <li key={forItem._id}>{forItem.wear} {forItem.knife} {forItem.finish}</li>
+                                <li key={forItem._id}>{`${forItem.knife} ${forItem.finish} (${convertWear(forItem.wear)})`}</li>
                             ))}
                         </ul>
                     </div>
@@ -104,13 +109,13 @@ export function OutgoingOffers({ data }) {
                         <span className="label"><b>[H]</b>ave</span>
                         <ul>
                             {entry.trade.have.map((haveItem) => (
-                                <li key={haveItem._id}>{haveItem.wear} {haveItem.knife} {haveItem.finish}</li>
+                                <li key={haveItem._id}>{`${haveItem.knife} ${haveItem.finish} (${convertWear(haveItem.wear)})`}</li>
                             ))}
                         </ul>
                         <span className="label"><b>[W]</b>ant</span>
                         <ul>
                             {entry.trade.want.map((wantItem) => (
-                                <li key={wantItem._id}>{wantItem.wear} {wantItem.knife} {wantItem.finish}</li>
+                                <li key={wantItem._id}>{`${wantItem.knife} ${wantItem.finish} (${convertWear(wantItem.wear)})`}</li>
                             ))}
                         </ul>
                     </div>

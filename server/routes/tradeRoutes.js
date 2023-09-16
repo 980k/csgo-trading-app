@@ -1,6 +1,7 @@
 const express = require('express');
 const Trade = require("../schemas/Trade");
 const User = require('../schemas/User');
+const Offer = require("../schemas/Offer");
 
 const router = express.Router();
 
@@ -12,6 +13,8 @@ router.get('/status', (request, response) => response.json({ clients: clients.le
 router.get('/api/trades', eventsHandler);
 
 router.post('/api/trades', addTrade);
+
+router.post('/api/trades/:_id', updateTrade);
 
 async function eventsHandler(request, response, next) {
     const headers = {
@@ -56,19 +59,43 @@ async function addTrade(request, response, next) {
 
     try {
         const tradeDocument = new Trade(newTrade);
-        await tradeDocument.save();
+        const savedTrade = await tradeDocument.save();
 
-        const tradeId = tradeDocument._id;
+        const tradeId = savedTrade._id;
 
         const userId = newTrade.userId;
 
         await User.findByIdAndUpdate(userId, { $push: { createdTrades: tradeId } });
 
-        response.json(newTrade);
-        sendEventsToAll(newTrade);
+        response.json(savedTrade);
+        sendEventsToAll(savedTrade);
     } catch (error) {
         console.error('Error saving trade to MongoDB:', error);
         response.status(500).end('Internal Server Error');
+    }
+}
+
+async function updateTrade(request, response, next) {
+    const tradeId = request.params._id;
+    const tradeUpdate = request.body;
+
+    try {
+        const offerId =  tradeUpdate.acceptedOffer;
+        const newOfferStatus = tradeUpdate.offerStatus;
+        const newTradeStatus = tradeUpdate.tradeStatus;
+
+        const updatedTrade = await Trade.findByIdAndUpdate(tradeId, { acceptedOffer: offerId, status: newTradeStatus});
+        const updatedOffer = await Offer.findByIdAndUpdate(offerId, { status: newOfferStatus });
+
+        if(!updatedTrade || !updatedOffer) {
+            return response.status(404).json({ message: 'Trade or Offer not found.'})
+        }
+
+        sendEventsToAll(updatedTrade);
+
+        return response.status(200).json({ message: 'Trade and Offer updated successfully', updatedTrade, updatedOffer });
+    } catch (error) {
+        return response.status(500).json({ message: 'Internal server error', error: error.message });
     }
 }
 

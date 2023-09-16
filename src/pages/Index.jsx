@@ -9,6 +9,8 @@ export default function Index() {
     const [filteredData, setFilteredData] = useState([]);
     const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
     const hasRendered = useRef(false);
+    const hasRenderedOffers = useRef(false);
+    const [ offerData , setOfferData ] = useState([]);
 
     const handleCheckboxChange = (selectedItems) => {
         setSelectedCheckboxes(selectedItems);
@@ -35,6 +37,29 @@ export default function Index() {
                 hasRendered.current = false;
             }
         };
+    }, []);
+
+    useEffect(() => {
+        let offerEvents = null;
+
+        if(!hasRenderedOffers.current) {
+            offerEvents = new EventSource('http://localhost:4000/offers/all');
+
+            offerEvents.onmessage = (event) => {
+                const parsedData = JSON.parse(event.data);
+
+                setOfferData((offerdata) => offerdata.concat(parsedData));
+            };
+
+            hasRenderedOffers.current = true;
+        }
+
+        return () => {
+            if(offerEvents) {
+                offerEvents.close();
+                hasRenderedOffers.current = false;
+            }
+        }
     }, []);
 
     useEffect(() => {
@@ -66,7 +91,7 @@ export default function Index() {
                 <Trades data={filteredData} />
             </div>
             <div className="right-sidebar">
-                <Activity />
+                <Activity data={offerData} />
             </div>
         </div>
     );
