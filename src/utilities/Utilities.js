@@ -16,3 +16,11 @@ export function renderOptions(options) {
         <option key={index}>{option}</option>
     ));
 }
+
+export function currentTime() {
+    const now = new Date();
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+    const timeFormat = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+    return timeFormat;
+}

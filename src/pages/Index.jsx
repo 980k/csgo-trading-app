@@ -12,10 +12,6 @@ export default function Index() {
     const hasRenderedOffers = useRef(false);
     const [ offerData , setOfferData ] = useState([]);
 
-    const handleCheckboxChange = (selectedItems) => {
-        setSelectedCheckboxes(selectedItems);
-    };
-
     useEffect(() => {
         let events = null;
 
@@ -25,7 +21,8 @@ export default function Index() {
             events.onmessage = (event) => {
                 const parsedData = JSON.parse(event.data);
 
-                setData((data) => data.concat(parsedData));
+                setData(parsedData);
+                console.log(data);
             };
 
             hasRendered.current = true;
@@ -48,7 +45,12 @@ export default function Index() {
             offerEvents.onmessage = (event) => {
                 const parsedData = JSON.parse(event.data);
 
-                setOfferData((offerdata) => offerdata.concat(parsedData));
+                console.log('Received Data:', parsedData);
+
+                setOfferData((offerData) => offerData.concat(parsedData));
+
+                console.log('After:', offerData);
+
             };
 
             hasRenderedOffers.current = true;
@@ -59,7 +61,7 @@ export default function Index() {
                 offerEvents.close();
                 hasRenderedOffers.current = false;
             }
-        }
+        };
     }, []);
 
     useEffect(() => {
@@ -80,6 +82,10 @@ export default function Index() {
 
         setFilteredData(filteredItems);
     }, [selectedCheckboxes, data]);
+
+    const handleCheckboxChange = (selectedItems) => {
+        setSelectedCheckboxes(selectedItems);
+    };
 
     return(
         <div className="grid-container">

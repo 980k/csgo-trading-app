@@ -5,9 +5,11 @@ const User = require("../schemas/User");
 
 const router = express.Router();
 
-let clients = [];
+let offerClients = [];
 
-async function eventsHandler(request, response, next) {
+router.get('/all', offerEventsHandler);
+
+async function offerEventsHandler(request, response, next) {
     const headers = {
         'Content-Type': 'text/event-stream',
         'Connection': 'keep-alive',
@@ -22,18 +24,18 @@ async function eventsHandler(request, response, next) {
         response.writeHead(200, headers);
         response.write(offerEventData);
 
-        const clientId = Date.now();
+        const offerClientId = Date.now();
 
-        const newClient = {
-            id: clientId,
+        const newOfferClient = {
+            id: offerClientId,
             response
         };
 
-        clients.push(newClient);
+        offerClients.push(newOfferClient);
 
         request.on('close', () => {
-            console.log(`${clientId} Connection closed`);
-            clients = clients.filter(client => client.id !== clientId);
+            console.log(`${offerClientId} Connection closed`);
+            offerClients = offerClients.filter(offerClient => offerClient.id !== offerClientId);
         });
     } catch (error) {
         console.error(error);
@@ -41,10 +43,9 @@ async function eventsHandler(request, response, next) {
     }
 }
 
-router.get('/all', eventsHandler);
 
 function sendEventsToAll(newOffer) {
-    clients.forEach(client => client.response.write(`data: ${JSON.stringify(newOffer)}\n\n`))
+    offerClients.forEach(offerClient => offerClient.response.write(`data: ${JSON.stringify(newOffer)}\n\n`))
 }
 
 router.get('/all/:userId', async(req, res) => {
@@ -99,13 +100,20 @@ router.post('/newoffer', async(req, res) => {
 
 })
 
+router.post('/update/:_id', updateOffer);
+
 async function updateOffer(request, response, next) {
     const offerId = request.params._id;
-    const offerUpdate = request.body.status;
+    const offerUpdate = request.body;
 
     try {
         const newStatus = offerUpdate.status;
-        const updatedOffer = await Offer.findByIdAndUpdate(offerId, { status: newStatus });
+        const newAcceptedAt = offerUpdate.acceptedAt;
+
+        const updatedOffer = await Offer.findByIdAndUpdate(offerId, {
+            status: "accepted",
+            acceptedAt: newAcceptedAt
+        }, { new: true });
 
         if (!updatedOffer) {
             return response.status(404).json({ message: 'Offer not found' });
@@ -118,24 +126,5 @@ async function updateOffer(request, response, next) {
         return response.status(500).json({ message: 'Internal server error', error: error.message });
     }
 }
-
-router.post('/update/:_id', updateOffer);
-
-// router.post('/update/:_id', async(req, res) => {
-//     const id = req.params._id;
-//     const newStatus = req.body.status;
-//
-//     try {
-//         const updatedOffer = await Offer.findByIdAndUpdate(id, { status: newStatus });
-//
-//         if (!updatedOffer) {
-//             return res.status(404).json({ message: 'Offer not found' });
-//         }
-//
-//         return res.status(200).json({ message: 'Offer updated successfully', updatedOffer });
-//     } catch (error) {
-//         return res.status(500).json({ message: 'Internal server error', error: error.message });
-//     }
-// })
 
 module.exports = router;

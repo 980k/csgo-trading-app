@@ -31,6 +31,11 @@ const OfferSchema = mongoose.Schema({
         type: String,
         enum: ["pending", "accepted", "declined"],
         default: "pending"
-    }})
+    },
+    acceptedAt: {
+        type: String,
+        default: null
+    }
+})
 
 module.exports = mongoose.model("Offer", OfferSchema);

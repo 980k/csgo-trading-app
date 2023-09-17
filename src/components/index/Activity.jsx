@@ -13,37 +13,46 @@ export default function Activity({ data }) {
             </header>
 
             <table className="activity-table">
-                <tr>
+                <thead>
                     <th>Time</th>
-                    <th>Trade</th>
-                </tr>
+                    <th colSpan={3}>Trade</th>
+                </thead>
 
                 <tbody>
                 {acceptedData.map((offer) => (
-                    <tr key={offer.id}>
-                        <td>5m</td>
+                    <tr key={offer._id}>
+                        <td className="time">{offer.acceptedAt}</td>
 
-                        <td>
-                            {offer.offered.map((offeredItem, index) => (
-                                <span key={index}>{`${offeredItem.knife} ${offeredItem.finish} (${convertWear(offeredItem.wear)})`}</span>
+                        <td className="truncate-cell">
+                            {offer.offered.map((offeredItem, index, array) => (
+                                <span key={index}>
+                                    {
+                                        (index !== array.length-1) ?
+                                            (`${offeredItem.knife} ${offeredItem.finish} (${convertWear(offeredItem.wear)}), `) :
+                                            (`${offeredItem.knife} ${offeredItem.finish} (${convertWear(offeredItem.wear)}) `)
+                                    }
+                                </span>
                             ))}
 
-                            &#x2194;
+                        </td>
 
-                            {offer.for.map((acceptedItem, index) => (
-                                <span key={index}>{`${acceptedItem.knife} ${acceptedItem.finish} (${convertWear(acceptedItem.wear)})`}</span>
+                       <td>&#x2194;</td>
+
+                        <td className="truncate-cell">
+
+                            {offer.for.map((acceptedItem, index, array) => (
+                                <span key={index}>
+                                    {
+                                        (index !== array.length-1) ?
+                                            (` ${acceptedItem.knife} ${acceptedItem.finish} (${convertWear(acceptedItem.wear)}),`) :
+                                            (` ${acceptedItem.knife} ${acceptedItem.finish} (${convertWear(acceptedItem.wear)})`)
+                                    }
+                                </span>
                             ))}
                         </td>
-                        {/*<td>*/}
-                        {/*    {offer.for.map((acceptedItem, index) => (*/}
-                        {/*        <span key={index}>{`${acceptedItem.knife} ${acceptedItem.finish} (${convertWear(acceptedItem.wear)})`}</span>*/}
-                        {/*    ))}*/}
-                        {/*</td>*/}
                     </tr>
                 ))}
                 </tbody>
-
-
             </table>
         </div>
     );
