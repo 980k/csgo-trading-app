@@ -1,46 +1,77 @@
-import React, { useState } from 'react';
-import '../../styles/components/MakeOfferForm.css'
+import React, {useReducer, useState} from 'react';
+import AddItem from "../create/itemList/AddItem";
+import ItemList from "../create/itemList/ItemList";
 import { itemsData, wearDictionary } from "../../objects/commonObjects";
 import { getUserId, renderOptions} from "../../utilities/Utilities";
+import '../../styles/components/MakeOfferForm.css'
+
+function itemsReducer(items, action) {
+    switch (action.type) {
+        case 'added': {
+            return [...items, {
+                id: action.id,
+                wear: action.wear,
+                knife: action.knife,
+                finish: action.finish
+            }];
+        }
+        case 'deleted': {
+            return items.filter(item => item.id !== action.id);
+        }
+        case 'cleared': {
+            return [];
+        }
+        default: {
+            throw Error('Unknown action: ' + action.type);
+        }
+    }
+}
 
 export default function MakeOfferForm({ tradeData }) {
     const [forItems, setForItems] = useState(tradeData.have);
-    const [haveItems, setHaveItems] = useState([]);
+    const [forItemsExc, setForItemsExc] = useState([]);
+    const [haveItems, dispatch] = useReducer(itemsReducer, []);
 
-    const postOffer = () => {
-        fetch('http://localhost:4000/offers/newoffer', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                tradeId: tradeData._id,
-                userId: getUserId(),
-                offered: haveItems,
-                for: forItems,
-            })
-        })
-            .then((response) => {
-                if(!response.ok) {
-                    throw new Error('Response error encountered.');
-                }
-                return response.json();
-            })
-            .then(() => {
-                setHaveItems([]);
-            })
-            .catch((error) => {
-                console.error("Error:", error);
-            });
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        postOffer();
+    function handleAddItemToList(itemObject) {
+        // Determine which dispatch function to use based on the listType parameter
+        dispatch({
+            type: 'added',
+            id: nextId++,
+            wear: itemObject.wear,
+            knife: itemObject.knife,
+            finish: itemObject.finish
+        });
     }
 
-    function handleAdd(id, data) {
-        setHaveItems([...haveItems, data]);
+    function handleDeleteItem(itemId) {
+        // Determine which dispatch function to use based on the listType parameter
+
+        dispatch({
+            type: 'deleted',
+            id: itemId
+        });
+    }
+
+    function clearItemLists() {
+        dispatch({
+            type: 'cleared'
+        });
+    }
+
+    function handleSubmit() {
+        console.log('hi');
+    }
+
+    function handleAddButton(itemId) {
+
+    }
+
+    function handleDeleteBtn(itemId) {
+        const excludedItem = forItems.find(item => item._id === itemId);
+        setForItemsExc([...forItemsExc, excludedItem]);
+
+        const newForArray = forItems.filter(item => item._id !== itemId);
+        setForItems(newForArray);
     }
 
     return (
@@ -73,52 +104,44 @@ export default function MakeOfferForm({ tradeData }) {
                 <h2>Your offer: </h2>
                 <fieldset>
                     <legend><b>Offer</b></legend>
-                    <label htmlFor="haveWears">Wear</label>
-                    <input type="text" id="haveWears" name="haveWears" list="wearOptions" />
-                    <datalist id="wearOptions">{renderOptions(itemsData.wears)}</datalist>
-
-                    <label htmlFor="haveKnives">Knife</label>
-                    <input type="text" id="haveKnives" name="haveKnives" list="knifeOptions" />
-                    <datalist id="knifeOptions">{renderOptions(itemsData.knives)}</datalist>
-
-                    <label htmlFor="haveFinishes">Finish</label>
-                    <input type="text" id="haveFinishes" name="haveFinishes" list="finishOptions" />
-                    <datalist id="finishOptions">{renderOptions(itemsData.finishes)}</datalist>
-
-                    <button
-                        id="haveAddBtn"
-                        onClick={(e) => {
-                            e.preventDefault(); // Not necessary, but can be added
-                            handleAdd(e.target.id, {
-                                wear: document.getElementById('haveWears').value,
-                                knife: document.getElementById('haveKnives').value,
-                                finish: document.getElementById('haveFinishes').value
-                            });
-                        }}
-                    >
-                        Add
-                    </button>
+                    <AddItem onAddItem={(item) => handleAddItemToList(item)} />
 
                     <div className="have-header"><i>You are offering ...</i></div>
 
-                    <ul>
-                        {haveItems.map((item) => {
-                            return <li>{item.knife} | {item.finish} ({wearDictionary[item.wear]})</li>;
-                        })}
-                    </ul>
+                    <ItemList items={haveItems} onDeleteItem={(itemId) => handleDeleteItem(itemId)} />
+
                 </fieldset>
 
                 <h2>For: </h2>
-                <ul>
-                    {
-                        forItems.map((item) => (
-                            <li key={item._id}>{item.knife} {item.finish} ({item.wear})</li>
-                        ))
-                    }
-                </ul>
+                {/*<ul>*/}
+                {/*    {*/}
+                {/*        forItems.map((item) => (*/}
+                {/*            <li key={item._id}>{item.knife} {item.finish} ({item.wear})*/}
+                {/*                <button onClick={handleDeleteBtn}> - </button>*/}
+                {/*            </li>*/}
+                {/*        ))*/}
+                {/*    }*/}
+                {/*</ul>*/}
+
+                {/*    {*/}
+                {/*        (forItemsExc.length > 0) ?*/}
+                {/*            (<ul>*/}
+                {/*                {*/}
+                {/*                    forItemsExc.map((item) => (*/}
+                {/*                        <li key={item._id}>{item.knife} {item.finish} ({item.wear})*/}
+                {/*                            <button> + </button>*/}
+                {/*                        </li>*/}
+                {/*                    ))*/}
+                {/*                }*/}
+                {/*            </ul>) :*/}
+                {/*            (<p></p>)*/}
+                {/*    }*/}
+
                     <button type="submit" id="submitOfferBtn">Make Offer</button>
                 </form>
             </div>
         </div>
     );
 }
+
+let nextId = 0;

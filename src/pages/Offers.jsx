@@ -79,7 +79,7 @@ export default function Offers() {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    offerStatus: "accepted",
+                    status: "accepted",
                     acceptedAt: currentTime()
                 })
             });

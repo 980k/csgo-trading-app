@@ -1,13 +1,40 @@
-import React, { useState } from 'react';
-import { itemsData, wearDictionary} from "../../objects/commonObjects";
-import { getUserId, renderOptions } from "../../utilities/Utilities";
+import React, { useReducer } from 'react';
+import { getUserId } from "../../utilities/Utilities";
+import AddItem from "./itemList/AddItem";
+import ItemList from "./itemList/ItemList";
 import '../../styles/components/Creation.css'
 
+function itemsReducer(items, action) {
+    switch (action.type) {
+        case 'added': {
+            return [...items, {
+                id: action.id,
+                wear: action.wear,
+                knife: action.knife,
+                finish: action.finish
+            }];
+        }
+        case 'deleted': {
+            return items.filter(item => item.id !== action.id);
+        }
+        case 'cleared': {
+            return [];
+        }
+        default: {
+            throw Error('Unknown action: ' + action.type);
+        }
+    }
+}
+
 export default function Creation() {
-    const [haveItems, setHaveItems] = useState([]);
-    const [wantItems, setWantItems] = useState([]);
+    // Initialize two separate states and dispatch functions for each list
+    const [haveItems, dispatchHaveItems] = useReducer(itemsReducer, []);
+    const [wantItems, dispatchWantItems] = useReducer(itemsReducer, []);
 
     const postTrade = () => {
+        const haveItemsFormatted =  haveItems.map(({ id, ...rest }) => rest);
+        const wantItemsFormatted = wantItems.map(({ id, ...rest }) => rest);
+
         fetch('http://localhost:4000/api/trades', {
             method: 'POST',
             headers: {
@@ -15,8 +42,8 @@ export default function Creation() {
             },
             body: JSON.stringify({
                 userId: getUserId(),
-                have: haveItems,
-                want: wantItems
+                have: haveItemsFormatted,
+                want: wantItemsFormatted
             })
         })
             .then((response) => {
@@ -26,109 +53,76 @@ export default function Creation() {
                 return response.json();
             })
             .then(() => {
-                setHaveItems([]);
-                setWantItems([]);
+                clearItemLists();
             })
             .catch((error) => {
                 console.error("Error: ", error);
             });
     };
 
+
+    function handleAddItemToList(itemObject, listType) {
+        // Determine which dispatch function to use based on the listType parameter
+        const dispatch = listType === 'haveItems' ? dispatchHaveItems : dispatchWantItems;
+
+        dispatch({
+            type: 'added',
+            id: nextId++,
+            wear: itemObject.wear,
+            knife: itemObject.knife,
+            finish: itemObject.finish
+        });
+    }
+
+    function handleDeleteItemFromList(itemId, listType) {
+        // Determine which dispatch function to use based on the listType parameter
+        const dispatch = listType === 'haveItems' ? dispatchHaveItems : dispatchWantItems;
+
+        dispatch({
+            type: 'deleted',
+            id: itemId
+        });
+    }
+
+    function clearItemLists() {
+        dispatchHaveItems({
+            type: 'cleared'
+        });
+
+        dispatchWantItems({
+            type: 'cleared'
+        });
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
         postTrade();
     };
 
-    function handleAdd(id, data) {
-        if(id === 'haveAddBtn') {
-            setHaveItems([...haveItems, data]);
-        } else if(id === 'wantAddBtn') {
-            setWantItems([...wantItems, data]);
-        }
-    }
-
-    return(
+    return (
         <div className="creation-container">
-        <form onSubmit={handleSubmit}>
-            <h2>Create Trade Offer</h2>
-            <fieldset>
-                <legend><b>Have</b></legend>
-                <label htmlFor="haveWears">Wear</label>
-                <input type="text" id="haveWears" name="haveWears" list="wearOptions" />
-                <datalist id="wearOptions">{renderOptions(itemsData.wears)}</datalist>
+            <form onSubmit={handleSubmit}>
+                <h2>Create Trade Offer</h2>
+                <fieldset>
+                    <legend><b>Have</b></legend>
+                    <AddItem onAddItem={(item) => handleAddItemToList(item, 'haveItems')} />
+                    <div className="have-header"><i>You have ...</i></div>
+                    <ItemList items={haveItems} onDeleteItem={(itemId) => handleDeleteItemFromList(itemId, 'haveItems')} />
+                </fieldset>
 
-                <label htmlFor="haveKnives">Knife</label>
-                <input type="text" id="haveKnives" name="haveKnives" list="knifeOptions" />
-                <datalist id="knifeOptions">{renderOptions(itemsData.knives)}</datalist>
+                <div className="swap">&#8645;</div>
 
-                <label htmlFor="haveFinishes">Finish</label>
-                <input type="text" id="haveFinishes" name="haveFinishes" list="finishOptions" />
-                <datalist id="finishOptions">{renderOptions(itemsData.finishes)}</datalist>
+                <fieldset>
+                    <legend><b>Want</b></legend>
+                    <AddItem onAddItem={(item) => handleAddItemToList(item, 'wantItems')} />
+                    <div className="want-header"><i>You want ...</i></div>
+                    <ItemList items={wantItems} onDeleteItem={(itemId) => handleDeleteItemFromList(itemId, 'wantItems')} />
+                </fieldset>
 
-                <button
-                    id="haveAddBtn"
-                    onClick={(e) => {
-                        e.preventDefault(); // Not necessary, but can be added
-                        handleAdd(e.target.id, {
-                            wear: document.getElementById('haveWears').value,
-                            knife: document.getElementById('haveKnives').value,
-                            finish: document.getElementById('haveFinishes').value
-                        });
-                    }}
-                >
-                    Add
-                </button>
-
-                <div className="have-header"><i>You have ...</i></div>
-
-                <ul>
-                    {haveItems.map((item) => {
-                        return <li>{item.knife} | {item.finish} ({wearDictionary[item.wear]})</li>;
-                    })}
-                </ul>
-            </fieldset>
-
-            <div className="swap">&#8645;</div>
-
-            <fieldset>
-                <legend><b>Want</b></legend>
-                <label htmlFor="wantWears">Wear</label>
-                <input type="text" id="wantWears" name="wantWears" list="wearOptions" />
-                <datalist id="wearOptions">{renderOptions(itemsData.wears)}</datalist>
-
-                <label htmlFor="wantKnives">Knife</label>
-                <input type="text" id="wantKnives" name="wantKnives" list="knifeOptions" />
-                <datalist id="knifeOptions">{renderOptions(itemsData.knives)}</datalist>
-
-                <label htmlFor="wantFinishes">Finish</label>
-                <input type="text" id="wantFinishes" name="wantFinishes" list="finishOptions" />
-                <datalist id="finishOptions">{renderOptions(itemsData.finishes)}</datalist>
-
-                <button
-                    id="wantAddBtn"
-                    onClick={(e) => {
-                        e.preventDefault(); // Not necessary, but can be added
-                        handleAdd(e.target.id, {
-                            wear: document.getElementById('wantWears').value,
-                            knife: document.getElementById('wantKnives').value,
-                            finish: document.getElementById('wantFinishes').value
-                        });
-                    }}
-                >
-                    Add
-                </button>
-
-                <div className="want-header"><i>You want ...</i></div>
-
-                <ul>
-                    {wantItems.map((item) => {
-                        return <li>{item.knife} | {item.finish} ({wearDictionary[item.wear]})</li>;
-                    })}
-                </ul>
-            </fieldset>
-
-            <button type="submit" id="submitBtn">Create</button>
-        </form>
+                <button type="submit" id="submitBtn">Create</button>
+            </form>
         </div>
     );
 }
+
+let nextId = 0;

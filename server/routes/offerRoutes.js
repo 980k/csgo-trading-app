@@ -108,12 +108,20 @@ async function updateOffer(request, response, next) {
 
     try {
         const newStatus = offerUpdate.status;
-        const newAcceptedAt = offerUpdate.acceptedAt;
 
-        const updatedOffer = await Offer.findByIdAndUpdate(offerId, {
-            status: "accepted",
-            acceptedAt: newAcceptedAt
-        }, { new: true });
+        let updatedOffer;
+
+        if(newStatus === "accepted") {
+            const newAcceptedAt = offerUpdate.acceptedAt;
+            updatedOffer = await Offer.findByIdAndUpdate(offerId, {
+                status: newStatus,
+                acceptedAt: newAcceptedAt
+            }, { new: true });
+        } else if(newStatus === "declined") {
+            updatedOffer = await Offer.findByIdAndUpdate(offerId, {
+                status: newStatus
+            }, { new: true });
+        }
 
         if (!updatedOffer) {
             return response.status(404).json({ message: 'Offer not found' });
