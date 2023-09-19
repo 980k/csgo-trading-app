@@ -1,4 +1,5 @@
 const express = require('express');
+const auth = require("../middleware/auth");
 const Trade = require('../schemas/Trade');
 const Offer = require('../schemas/Offer');
 const User = require("../schemas/User");
@@ -80,7 +81,7 @@ router.get('/all/:userId', async(req, res) => {
     }
 });
 
-router.post('/newoffer', async(req, res) => {
+router.post('/newoffer', auth, async(req, res) => {
     const newOffer = req.body;
 
     try {
@@ -93,14 +94,16 @@ router.post('/newoffer', async(req, res) => {
 
         await User.findByIdAndUpdate(userId, { $push: { createdOffers: offerId } });
         await Trade.findByIdAndUpdate(tradeId, { $push: { offers: offerId }});
+
+        res.status(201).json({ message: 'Offer created successfully' });
     } catch (error) {
         console.error('Error saving offer to MongoDb:', error);
         res.status(500).end('Internal Server Error');
     }
 
-})
+});
 
-router.post('/update/:_id', updateOffer);
+router.post('/update/:_id', auth, updateOffer);
 
 async function updateOffer(request, response, next) {
     const offerId = request.params._id;

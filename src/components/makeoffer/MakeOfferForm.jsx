@@ -2,8 +2,10 @@ import React, {useReducer, useState} from 'react';
 import AddItem from "../create/itemList/AddItem";
 import ItemList from "../create/itemList/ItemList";
 import { itemsData, wearDictionary } from "../../objects/commonObjects";
-import { getUserId, renderOptions} from "../../utilities/Utilities";
+import {convertWear, getUserId, renderOptions} from "../../utilities/Utilities";
 import '../../styles/components/MakeOfferForm.css'
+import { toast } from 'react-toastify';
+import '../../styles/components/Creation.css'
 
 function itemsReducer(items, action) {
     switch (action.type) {
@@ -32,6 +34,47 @@ export default function MakeOfferForm({ tradeData }) {
     const [forItemsExc, setForItemsExc] = useState([]);
     const [haveItems, dispatch] = useReducer(itemsReducer, []);
 
+    const auth_token = sessionStorage.getItem('auth_token');
+
+    const postOffer = () => {
+        const haveItemsFormatted =  haveItems.map(({ id, ...rest }) => rest);
+
+        fetch('http://localhost:4000/offers/newoffer', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'auth-token': auth_token
+            },
+            body: JSON.stringify({
+                tradeId: tradeData._id,
+                userId: getUserId(auth_token),
+                offered: haveItemsFormatted,
+                for: forItems
+            })
+        })
+            .then((response) => {
+                if(!response.ok) {
+                    throw new Error('Response error encountered.');
+                }
+                return response.json();
+            })
+            .then(() => {
+                clearOffer();
+            })
+            .catch((error) => {
+                console.error("Error: ", error);
+            })
+    }
+
+    function clearOffer() {
+        dispatch({
+            type: 'cleared'
+        });
+
+        setForItems(tradeData.have);
+        setForItemsExc([]);
+    }
+
     function handleAddItemToList(itemObject) {
         // Determine which dispatch function to use based on the listType parameter
         dispatch({
@@ -44,8 +87,6 @@ export default function MakeOfferForm({ tradeData }) {
     }
 
     function handleDeleteItem(itemId) {
-        // Determine which dispatch function to use based on the listType parameter
-
         dispatch({
             type: 'deleted',
             id: itemId
@@ -58,12 +99,30 @@ export default function MakeOfferForm({ tradeData }) {
         });
     }
 
-    function handleSubmit() {
-        console.log('hi');
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        if(auth_token) {
+            postOffer();
+
+            toast.success('Offer sent!', {
+                position:'top-right',
+                hideProgressBar: true
+            });
+        } else {
+            toast.error('Please log in to make offer.', {
+                position: 'top-right',
+                hideProgressBar: true
+            });
+        }
     }
 
-    function handleAddButton(itemId) {
+    function handleAddBtn(itemId) {
+        const includedItem = forItemsExc.find(item => item._id === itemId);
+        setForItems([...forItems, includedItem]);
 
+        const newForExcArray = forItemsExc.filter(item => item._id !== itemId);
+        setForItemsExc(newForExcArray);
     }
 
     function handleDeleteBtn(itemId) {
@@ -81,7 +140,8 @@ export default function MakeOfferForm({ tradeData }) {
                 <ul>
                     {tradeData.have.map((item, index) => (
                         <li key={index}>
-                            {item.knife} | {item.finish} ({item.wear})
+                            {/*{item.knife} | {item.finish} ({item.wear})*/}
+                            {`${item.knife} | ${item.finish} (${item.wear})`}
                         </li>
                     ))}
                 </ul>
@@ -111,31 +171,35 @@ export default function MakeOfferForm({ tradeData }) {
                     <ItemList items={haveItems} onDeleteItem={(itemId) => handleDeleteItem(itemId)} />
 
                 </fieldset>
+                    <div>
+                        <h2>For:</h2>
+                        <ul>
+                            {forItems.length > 0 ? (
+                                forItems.map((item) => (
+                                    <li key={item._id}>
+                                        {item.knife} {item.finish} ({item.wear})
+                                        {forItems.length > 1 ? (
+                                            <button onClick={() => handleDeleteBtn(item._id)}> - </button>
+                                        ) : null}
+                                    </li>
+                                ))
+                            ) : null}
+                        </ul>
+                    </div>
 
-                <h2>For: </h2>
-                {/*<ul>*/}
-                {/*    {*/}
-                {/*        forItems.map((item) => (*/}
-                {/*            <li key={item._id}>{item.knife} {item.finish} ({item.wear})*/}
-                {/*                <button onClick={handleDeleteBtn}> - </button>*/}
-                {/*            </li>*/}
-                {/*        ))*/}
-                {/*    }*/}
-                {/*</ul>*/}
-
-                {/*    {*/}
-                {/*        (forItemsExc.length > 0) ?*/}
-                {/*            (<ul>*/}
-                {/*                {*/}
-                {/*                    forItemsExc.map((item) => (*/}
-                {/*                        <li key={item._id}>{item.knife} {item.finish} ({item.wear})*/}
-                {/*                            <button> + </button>*/}
-                {/*                        </li>*/}
-                {/*                    ))*/}
-                {/*                }*/}
-                {/*            </ul>) :*/}
-                {/*            (<p></p>)*/}
-                {/*    }*/}
+                    {forItemsExc.length > 0 ? (
+                        <div>
+                            <h2>Excluded:</h2>
+                            <ul>
+                                {forItemsExc.map((item) => (
+                                    <li key={item._id}>
+                                        {item.knife} {item.finish} {item.wear}
+                                        <button onClick={() => handleAddBtn(item._id)}> + </button>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    ) : null}
 
                     <button type="submit" id="submitOfferBtn">Make Offer</button>
                 </form>

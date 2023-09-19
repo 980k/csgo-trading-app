@@ -1,7 +1,7 @@
 const express = require('express');
+const auth = require("../middleware/auth");
 const Trade = require("../schemas/Trade");
 const User = require('../schemas/User');
-const Offer = require("../schemas/Offer");
 
 const router = express.Router();
 
@@ -61,7 +61,7 @@ function sendEventsToAll(newData) {
     clients.forEach(client => client.response.write(`data: ${JSON.stringify(newData)}\n\n`))
 }
 
-router.post('/api/trades', addTrade);
+router.post('/api/trades', auth, addTrade);
 
 async function addTrade(request, response, next) {
     const newTrade = request.body;
@@ -89,7 +89,7 @@ async function addTrade(request, response, next) {
     }
 }
 
-router.post('/api/trades/:_id', updateTrade);
+router.post('/api/trades/:_id', auth, updateTrade);
 
 async function updateTrade(request, response, next) {
     const tradeId = request.params._id;

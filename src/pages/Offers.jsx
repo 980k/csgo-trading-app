@@ -9,14 +9,15 @@ export default function Offers() {
         associatedTrades: [],
     });
 
+    const auth_token = sessionStorage.getItem('auth_token');
+
     useEffect(() => {
-        const auth_token = sessionStorage.getItem('auth_token');
 
         if (!auth_token) {
             return;
         }
 
-        const userId = getUserId();
+        const userId = getUserId(auth_token);
 
         fetch(`http://localhost:4000/offers/all/${userId}`)
             .then((response) => response.json())
@@ -25,7 +26,7 @@ export default function Offers() {
                 setOfferData(newData);
             })
             .catch((error) => console.error('Error fetching data:', error));
-    }, []);
+    }, );
 
     // Function to update the offer status and fetch updated data
     const handleDeclineOffer = (offerId) => {
@@ -33,7 +34,8 @@ export default function Offers() {
         fetch(`http://localhost:4000/offers/update/${offerId}`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'auth-token': auth_token
             },
             body: JSON.stringify({
                 status: "declined"
@@ -44,7 +46,7 @@ export default function Offers() {
                     throw new Error('Response error encountered.');
                 }
                 // After successfully updating the status, fetch the updated data
-                return fetch(`http://localhost:4000/offers/all/${getUserId()}`);
+                return fetch(`http://localhost:4000/offers/all/${getUserId(auth_token)}`);
             })
             .then((response) => response.json())
             .then((newData) => {
@@ -61,7 +63,8 @@ export default function Offers() {
             const tradeResponse = await fetch(`http://localhost:4000/api/trades/${tradeId}`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type' : 'application/json'
+                    'Content-Type' : 'application/json',
+                    'auth-token': auth_token
                 },
                 body: JSON.stringify({
                     acceptedOffer: offerId,
@@ -76,7 +79,8 @@ export default function Offers() {
             const offerResponse = await fetch(`http://localhost:4000/offers/update/${offerId}`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'auth-token': auth_token
                 },
                 body: JSON.stringify({
                     status: "accepted",
@@ -89,7 +93,7 @@ export default function Offers() {
             }
 
             // Fetch updated offer data and set it in your state
-            const newDataResponse = await fetch(`http://localhost:4000/offers/all/${getUserId()}`);
+            const newDataResponse = await fetch(`http://localhost:4000/offers/all/${getUserId(auth_token)}`);
             if (!newDataResponse.ok) {
                 throw new Error('Fetching updated offer data failed.');
             }

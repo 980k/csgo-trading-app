@@ -2,6 +2,7 @@ import React, { useReducer } from 'react';
 import { getUserId } from "../../utilities/Utilities";
 import AddItem from "./itemList/AddItem";
 import ItemList from "./itemList/ItemList";
+import { toast } from 'react-toastify';
 import '../../styles/components/Creation.css'
 
 function itemsReducer(items, action) {
@@ -31,6 +32,8 @@ export default function Creation() {
     const [haveItems, dispatchHaveItems] = useReducer(itemsReducer, []);
     const [wantItems, dispatchWantItems] = useReducer(itemsReducer, []);
 
+    const auth_token = sessionStorage.getItem('auth_token');
+
     const postTrade = () => {
         const haveItemsFormatted =  haveItems.map(({ id, ...rest }) => rest);
         const wantItemsFormatted = wantItems.map(({ id, ...rest }) => rest);
@@ -39,9 +42,10 @@ export default function Creation() {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'auth-token': auth_token
             },
             body: JSON.stringify({
-                userId: getUserId(),
+                userId: getUserId(auth_token),
                 have: haveItemsFormatted,
                 want: wantItemsFormatted
             })
@@ -96,7 +100,21 @@ export default function Creation() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        postTrade();
+
+        if(auth_token) {
+            postTrade();
+
+            toast.success('Trade created!', {
+                position:'top-right',
+                hideProgressBar: true
+            });
+
+        } else {
+            toast.error('Please log in to create a trade.', {
+                position: 'top-right',
+                hideProgressBar: true
+            })
+        };
     };
 
     return (

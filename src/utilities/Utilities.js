@@ -5,8 +5,7 @@ export function convertWear(wear) {
     return(wearDictionary[wear]);
 }
 
-export function getUserId() {
-    const auth_token = sessionStorage.getItem('auth_token');
+export function getUserId(auth_token) {
     const decoded = jwtDecode(auth_token);
     return decoded.user.id;
 }

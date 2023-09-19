@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import MakeOfferForm from '../components/makeoffer/MakeOfferForm'; // Import the MakeOfferForm component
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function MakeOffer() {
     const { _id } = useParams();
@@ -42,6 +44,8 @@ export default function MakeOffer() {
                     <MakeOfferForm tradeData={tradeData} />
                 </div>
             )}
+            <ToastContainer position="top-right" autoClose={1500} />
+
         </div>
     );
 }
