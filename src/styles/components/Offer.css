@@ -1,5 +1,5 @@
 .incoming-component h2, .outgoing-component h2 {
-    font-size: 1em;
+    font-size: 1rem;
     text-align: center;
 }
 
@@ -22,7 +22,7 @@
     display: flex;
     list-style-type: square;
     margin: 0;
-    font-size: .8em;
+    font-size: .8rem;
 }
 
 .incoming-item li {
@@ -30,7 +30,7 @@
 }
 
 .label {
-    font-size: .8em;
+    font-size: .8rem;
 }
 
 .outgoing-item .original {
@@ -48,7 +48,7 @@
     display: flex;
     list-style-type: square;
     margin: 0;
-    font-size: .8em;
+    font-size: .8rem;
 }
 
 .outgoing-item li {
@@ -62,20 +62,20 @@
 
 .status {
     margin-left: auto;
-    font-size: .75em;
+    font-size: .75rem;
 }
 
 .action {
     border:none;
     background-color: #ffffff;
-    font-size: 0.7em;
+    font-size: 0.7rem;
     padding-top: 0;
     padding-bottom: 0;
 }
 
 .button-container {
     display: flex;
-    justify-content: flex-end; /* Move the buttons to the right within the container */
+    justify-content: flex-end;
 }
 
 #accept-btn {
@@ -87,11 +87,70 @@
 }
 
 .offer-status {
-    font-size: 0.7em;
+    font-size: 0.7rem;
     display: flex;
     justify-content: flex-end; /* Move the buttons to the right within the container */
 }
 
+@media screen and (max-width: 1280px) {
+    .incoming-component h2, .outgoing-component h2 {
+        font-size: .9rem;
+    }
 
+    .incoming-item ul {
+        font-size: .7rem;
+    }
+
+    .label {
+        font-size: .7rem;
+    }
+
+    .outgoing-item ul {
+        font-size: .7rem;
+    }
+
+    .status {
+        font-size: .55rem;
+    }
+
+    .action {
+        font-size: .5rem;
+    }
+
+    .offer-status {
+        font-size: .5rem;
+    }
+}
+
+@media screen and (max-width: 854px) {
+    .incoming-component h2, .outgoing-component h2 {
+        font-size: .7rem;
+    }
+
+    .incoming-item ul {
+        font-size: .5rem;
+    }
+
+    .label {
+        font-size: .5rem;
+    }
+
+    .outgoing-item ul {
+        font-size: .5rem;
+    }
+
+    .status {
+        font-size: .35rem;
+    }
+
+    .action {
+        font-size: .3rem;
+    }
+
+    .offer-status {
+        font-size: .3rem;
+    }
+
+}
 
 

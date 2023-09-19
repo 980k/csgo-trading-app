@@ -140,7 +140,6 @@ export default function MakeOfferForm({ tradeData }) {
                 <ul>
                     {tradeData.have.map((item, index) => (
                         <li key={index}>
-                            {/*{item.knife} | {item.finish} ({item.wear})*/}
                             {`${item.knife} | ${item.finish} (${item.wear})`}
                         </li>
                     ))}
@@ -171,7 +170,7 @@ export default function MakeOfferForm({ tradeData }) {
                     <ItemList items={haveItems} onDeleteItem={(itemId) => handleDeleteItem(itemId)} />
 
                 </fieldset>
-                    <div>
+                    <div className="offer-for-items">
                         <h2>For:</h2>
                         <ul>
                             {forItems.length > 0 ? (
@@ -179,7 +178,7 @@ export default function MakeOfferForm({ tradeData }) {
                                     <li key={item._id}>
                                         {item.knife} {item.finish} ({item.wear})
                                         {forItems.length > 1 ? (
-                                            <button onClick={() => handleDeleteBtn(item._id)}> - </button>
+                                            <button className="delete-btn" onClick={() => handleDeleteBtn(item._id)}> - </button>
                                         ) : null}
                                     </li>
                                 ))
@@ -188,13 +187,13 @@ export default function MakeOfferForm({ tradeData }) {
                     </div>
 
                     {forItemsExc.length > 0 ? (
-                        <div>
+                        <div classname="offer-exc-items">
                             <h2>Excluded:</h2>
                             <ul>
                                 {forItemsExc.map((item) => (
                                     <li key={item._id}>
                                         {item.knife} {item.finish} {item.wear}
-                                        <button onClick={() => handleAddBtn(item._id)}> + </button>
+                                        <button className="add-btn" onClick={() => handleAddBtn(item._id)}> + </button>
                                     </li>
                                 ))}
                             </ul>

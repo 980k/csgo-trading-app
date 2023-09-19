@@ -104,16 +104,9 @@ export default function Creation() {
         if(auth_token) {
             postTrade();
 
-            toast.success('Trade created!', {
-                position:'top-right',
-                hideProgressBar: true
-            });
-
+            toast.success('Trade created!');
         } else {
-            toast.error('Please log in to create a trade.', {
-                position: 'top-right',
-                hideProgressBar: true
-            })
+            toast.error('Please log in to create a trade.');
         };
     };
 

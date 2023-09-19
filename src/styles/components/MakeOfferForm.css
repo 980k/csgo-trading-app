@@ -1,19 +1,13 @@
 .trade-offer-container {
     max-width: 65vh; /* Set a maximum width for the form */
-    margin-top: 5vh;
-    margin-bottom: 2vh;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 5vh auto 2vh;
     padding: 20px; /* Add padding for spacing inside the form */
     border: 1px solid #dcdcdd;
-
 }
 
 .your-offer-container {
     max-width: 70vh; /* Set a maximum width for the form */
-    margin-top: 2vh;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 2vh auto 5vh;
     /* Add padding for spacing inside the form */
     padding: 20px 0 0;
     border: 1px solid #dcdcdd;
@@ -27,7 +21,7 @@
 
 .your-offer-container input {
     border: none;
-    border-bottom: 1px solid #dcdcdd; /* Optional: Add a border for styling */
+    border-bottom: 1px solid #dcdcdd;
     margin-right: 5px;
 }
 
@@ -46,6 +40,14 @@
     font-size: 25px;
 }
 
+.delete-btn {
+    margin-left: 10px;
+}
+
+.add-btn {
+    margin-left: 10px;
+}
+
 #submitOfferBtn {
     width: 100%;
     margin-top: 10px;
@@ -55,5 +57,25 @@
     cursor: pointer;
     background-color: #f3f3f4;
     font-size: 1em;
+}
 
+@media screen and (max-width: 1280px) {
+    .trade-offer-container {
+        max-width: 90vh;
+    }
+
+    .your-offer-container {
+        max-width: 100vh;
+    }
+}
+
+@media screen and (max-width: 854px) {
+
+    .trade-offer-container {
+        max-width: 130vh;
+    }
+
+    .your-offer-container {
+        max-width: 150vh;
+    }
 }

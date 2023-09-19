@@ -44,8 +44,11 @@ export default function MakeOffer() {
                     <MakeOfferForm tradeData={tradeData} />
                 </div>
             )}
-            <ToastContainer position="top-right" autoClose={1500} />
-
+            <ToastContainer
+                position="top-right"
+                toastStyle={{ top: "55px" , boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)"}}
+                hideProgressBar={true}
+                autoClose={1500} />
         </div>
     );
 }

@@ -14,16 +14,16 @@ export default function Activity({ data }) {
 
             <table className="activity-table">
                 <thead>
-                    <th>Time</th>
-                    <th colSpan={3}>Trade</th>
+                    <th className="time-header">Time</th>
+                    <th className="trade-header" colSpan={3}>Trade</th>
                 </thead>
 
                 <tbody>
                 {acceptedData.map((offer) => (
                     <tr key={offer._id}>
-                        <td className="time">{offer.acceptedAt}</td>
+                        <td className="time-data">{offer.acceptedAt}</td>
 
-                        <td className="truncate-cell">
+                        <td className="trade-data">
                             {offer.offered.map((offeredItem, index, array) => (
                                 <span key={index}>
                                     {
@@ -33,12 +33,11 @@ export default function Activity({ data }) {
                                     }
                                 </span>
                             ))}
-
                         </td>
 
                        <td>&#x2194;</td>
 
-                        <td className="truncate-cell">
+                        <td className="trade-data">
 
                             {offer.for.map((acceptedItem, index, array) => (
                                 <span key={index}>

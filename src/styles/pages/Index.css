@@ -21,6 +21,11 @@
     overflow: auto;
 }
 
+.left-sidebar {
+    overflow: scroll; /* Add a scrollbar when the content overflows */
+    max-height: 690px; /* Set a maximum height for the ul */
+}
+
 /* Hide scrollbar for Chrome, Safari and Opera */
 .content::-webkit-scrollbar {
     display: none;
@@ -28,6 +33,16 @@
 
 /* Hide scrollbar for IE, Edge and Firefox */
 .content {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.left-sidebar::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.left-sidebar {
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
 }

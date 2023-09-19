@@ -5,11 +5,12 @@
 }
 
 .trade-grid-item {
-    border: .9px solid #dcdcdd;
+    border: 1px solid #dcdcdd;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     height: 100%; /* Ensure the container takes up the full height of its parent */
+    font-size: 1rem;
 }
 
 .trade-list {
@@ -21,7 +22,7 @@
 }
 
 .offerBtn {
-    border-top: .8px solid #dcdcdd;
+    border-top: 1px solid #dcdcdd;
     background-color: #f3f3f4; /* Example background color */
     color: #000; /* Example text color */
     padding: 10px;
@@ -34,9 +35,31 @@
 }
 
 .completed {
-    border-top: .8px solid #dcdcdd;
+    border-top: 1px solid #dcdcdd;
     background-color: #fff; /* Example background color */
     color: #000; /* Example text color */
     padding: 10px;
     text-align: center;
+}
+
+@media screen and (max-width: 1280px) {
+    .trade-grid-container {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .trade-grid-item {
+        font-size: .8rem;
+    }
+
+}
+
+@media screen and (max-width: 854px) {
+    .trade-grid-container {
+        grid-template-columns: 1fr;
+    }
+
+    .trade-grid-item {
+        font-size: .6rem;
+    }
+
 }

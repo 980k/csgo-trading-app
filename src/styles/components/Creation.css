@@ -10,6 +10,7 @@
     border: none;
     border-bottom: 1px solid #dcdcdd; /* Optional: Add a border for styling */
     margin-right: 5px;
+    width: 9rem;
 }
 
 /* Center the swap symbol */
@@ -57,4 +58,25 @@
     cursor: pointer;
     background-color: #f3f3f4;
     font-size: 1em;
+}
+
+@media screen and (max-width: 1280px) {
+    .creation-container {
+        max-width: 100vh; /* Set a maximum width for the form */
+    }
+
+    .creation-container input {
+        width: 8rem;
+    }
+}
+
+@media screen and (max-width: 854px) {
+    .creation-container {
+        max-width: 120vh; /* Set a maximum width for the form */
+
+    }
+
+    .creation-container input {
+        width: 6rem;
+    }
 }

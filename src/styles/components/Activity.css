@@ -1,33 +1,76 @@
+.activity h2 {
+    font-size: 1rem;
+}
+
 .activity-table {
     border-collapse: collapse;
     width: 100%;
 }
 
-.activity-table th {
-    border-bottom: 1px solid #dcdcdd;
-    text-align: center;
-    font-size: .9em;
-}
-
 .activity-table td {
     padding-top: .8em;
-    font-size: .8em;
+    font-size: .9rem;
 }
 
-.activity h2 {
-    font-size: 1em;
+.activity-table th {
+    border-bottom: 1px solid #dcdcdd;
+    font-size: .9rem;
 }
 
-.truncate-cell {
-    max-width: 100px; /* Adjust the max width as per your design */
+.time-header {
+    text-align: left;
+}
+
+.trade-header {
+    text-align: center;
+}
+
+.time-data {
+    text-align: left;
+}
+
+.trade-data {
+    max-width: 9em;
+    position: relative;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     cursor: pointer;
     user-select: none;
-    position: relative;
 }
 
-.time {
-    text-align: center;
+@media screen and (max-width: 1280px) {
+    .activity h2 {
+        font-size: .9rem;
+    }
+
+    .activity-table td {
+        font-size: .7rem;
+    }
+
+    .activity-table th {
+        font-size: .7rem;
+    }
+
+    .trade-data {
+        max-width: 8em;
+    }
+}
+
+@media screen and (max-width: 854px) {
+    .activity h2 {
+        font-size: .7rem;
+    }
+
+    .activity-table td {
+        font-size: .5rem;
+    }
+
+    .activity-table th {
+        font-size: .5rem;
+    }
+
+    .trade-data {
+        max-width: 7em;
+    }
 }
