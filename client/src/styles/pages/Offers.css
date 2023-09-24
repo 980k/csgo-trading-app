@@ -1,0 +1,17 @@
+.offer-grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: calc(100vh - 61px);
+}
+
+.offer-grid-container div {
+    padding: 5px;
+}
+
+.incoming-tab {
+    border-right: .5px solid #dcdcdd;
+}
+
+.outgoing-tab {
+    border-left: .5px solid #dcdcdd;
+}
