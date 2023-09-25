@@ -1,6 +1,6 @@
 import React from 'react';
 import {convertWear} from "../../../utilities/Utilities";
-import '../../../styles/components/ItemList.css'
+import '../../../styles/components/ItemList.css';
 
 export default function ItemList({items, onDeleteItem}) {
     return (

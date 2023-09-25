@@ -1,8 +1,7 @@
 import React, {useReducer, useState} from 'react';
 import AddItem from "../create/itemList/AddItem";
 import ItemList from "../create/itemList/ItemList";
-import {itemsData, wearDictionary} from "../../objects/commonObjects";
-import {convertWear, getUserId, renderOptions} from "../../utilities/Utilities";
+import {getUserId} from "../../utilities/Utilities";
 import '../../styles/components/MakeOfferForm.css'
 import {toast} from 'react-toastify';
 
@@ -38,7 +37,7 @@ export default function MakeOfferForm({tradeData}) {
     const postOffer = () => {
         const haveItemsFormatted = haveItems.map(({id, ...rest}) => rest);
 
-        fetch('http://localhost:4000/offers/newoffer', {
+        fetch('http://localhost:4000/offers/new', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -89,12 +88,6 @@ export default function MakeOfferForm({tradeData}) {
         dispatch({
             type: 'deleted',
             id: itemId
-        });
-    }
-
-    function clearItemLists() {
-        dispatch({
-            type: 'cleared'
         });
     }
 

@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {useParams} from 'react-router-dom';
-import MakeOfferForm from '../components/makeoffer/MakeOfferForm'; // Import the MakeOfferForm component
+import MakeOfferForm from '../components/makeoffer/MakeOfferForm';
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -11,7 +11,7 @@ export default function MakeOffer() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        fetch(`http://localhost:4000/api/trades/${_id}`)
+        fetch(`http://localhost:4000/trades/${_id}`)
             .then((response) => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');

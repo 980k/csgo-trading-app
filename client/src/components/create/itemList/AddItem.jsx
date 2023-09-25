@@ -15,13 +15,11 @@ export default function AddItem({onAddItem}) {
                        onChange={(e) => setWearText(e.target.value)}/>
                 <datalist id="wearOptions">{renderOptions(itemsData.wears)}</datalist>
             </label>
-
             <label>
                 Knife
                 <input value={knifeText} type="text" list="knifeOptions"
                        onChange={(e) => setKnifeText(e.target.value)}/>
                 <datalist id="knifeOptions">{renderOptions(itemsData.knives)}</datalist>
-
             </label>
             <label>
                 Finish

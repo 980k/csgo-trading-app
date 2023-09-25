@@ -7,22 +7,21 @@ import '../styles/pages/Index.css';
 export default function Index() {
     const [data, setData] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
+    const [offerData, setOfferData] = useState([]);
     const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
     const hasRendered = useRef(false);
     const hasRenderedOffers = useRef(false);
-    const [offerData, setOfferData] = useState([]);
 
     useEffect(() => {
         let events = null;
 
         if (!hasRendered.current) {
-            events = new EventSource('http://localhost:4000/api/trades');
+            events = new EventSource('http://localhost:4000/trades/all');
 
             events.onmessage = (event) => {
                 const parsedData = JSON.parse(event.data);
 
                 setData(parsedData);
-                console.log(data);
             };
 
             hasRendered.current = true;
@@ -45,12 +44,7 @@ export default function Index() {
             offerEvents.onmessage = (event) => {
                 const parsedData = JSON.parse(event.data);
 
-                console.log('Received Data:', parsedData);
-
                 setOfferData((offerData) => offerData.concat(parsedData));
-
-                console.log('After:', offerData);
-
             };
 
             hasRenderedOffers.current = true;

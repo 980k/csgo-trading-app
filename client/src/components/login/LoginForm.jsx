@@ -29,7 +29,7 @@ export default function LoginForm() {
             password
         }
 
-        const res = await fetch("http://localhost:4000/user/login", {
+        const res = await fetch("http://localhost:4000/users/login", {
             method: 'POST',
             headers: {
                 "Content-Type": 'application/json'
@@ -57,7 +57,7 @@ export default function LoginForm() {
         const decoded = jwtDecode(token);
         const userId = decoded.user.id;
 
-        const userResponse = await fetch(`http://localhost:4000/user/${userId}`, {
+        const userResponse = await fetch(`http://localhost:4000/users/${userId}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

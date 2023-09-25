@@ -1,7 +1,7 @@
 import React, {useReducer} from 'react';
-import {getUserId} from "../../utilities/Utilities";
 import AddItem from "./itemList/AddItem";
 import ItemList from "./itemList/ItemList";
+import {getUserId} from "../../utilities/Utilities";
 import {toast} from 'react-toastify';
 import '../../styles/components/Creation.css'
 
@@ -38,7 +38,7 @@ export default function Creation() {
         const haveItemsFormatted = haveItems.map(({id, ...rest}) => rest);
         const wantItemsFormatted = wantItems.map(({id, ...rest}) => rest);
 
-        fetch('http://localhost:4000/api/trades', {
+        fetch('http://localhost:4000/trades/new', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -106,8 +106,7 @@ export default function Creation() {
             toast.success('Trade created!');
         } else {
             toast.error('Please log in to create a trade.');
-        }
-        ;
+        };
     };
 
     return (

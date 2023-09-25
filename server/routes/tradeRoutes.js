@@ -9,7 +9,7 @@ let clients = [];
 
 router.get('/status', (request, response) => response.json({ clients: clients.length }));
 
-router.get('/api/trades', eventsHandler);
+router.get('/all', eventsHandler);
 
 async function eventsHandler(request, response, next) {
     const headers = {
@@ -45,7 +45,7 @@ async function eventsHandler(request, response, next) {
     }
 }
 
-router.get('/api/trades/:_id', async(req, res) => {
+router.get('/:_id', async(req, res) => {
     const id = req.params._id;
 
     try {
@@ -55,13 +55,13 @@ router.get('/api/trades/:_id', async(req, res) => {
         console.error(error);
         res.status(500).json({ error: 'An error occurred while fetching data.'})
     }
-})
+});
 
 function sendEventsToAll(newData) {
     clients.forEach(client => client.response.write(`data: ${JSON.stringify(newData)}\n\n`))
 }
 
-router.post('/api/trades', auth, addTrade);
+router.post('/new', auth, addTrade);
 
 async function addTrade(request, response, next) {
     const newTrade = request.body;
@@ -89,7 +89,7 @@ async function addTrade(request, response, next) {
     }
 }
 
-router.post('/api/trades/:_id', auth, updateTrade);
+router.post('/update/:_id', auth, updateTrade);
 
 async function updateTrade(request, response, next) {
     const tradeId = request.params._id;

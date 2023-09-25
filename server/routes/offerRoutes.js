@@ -44,12 +44,11 @@ async function offerEventsHandler(request, response, next) {
     }
 }
 
-
 function sendEventsToAll(newOffer) {
     offerClients.forEach(offerClient => offerClient.response.write(`data: ${JSON.stringify(newOffer)}\n\n`))
 }
 
-router.get('/all/:userId', async(req, res) => {
+router.get('/:userId', async(req, res) => {
     const userId = req.params.userId;
 
     try {
@@ -81,7 +80,7 @@ router.get('/all/:userId', async(req, res) => {
     }
 });
 
-router.post('/newoffer', auth, async(req, res) => {
+router.post('/new', auth, async(req, res) => {
     const newOffer = req.body;
 
     try {
@@ -100,7 +99,6 @@ router.post('/newoffer', auth, async(req, res) => {
         console.error('Error saving offer to MongoDb:', error);
         res.status(500).end('Internal Server Error');
     }
-
 });
 
 router.post('/update/:_id', auth, updateOffer);

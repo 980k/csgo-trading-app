@@ -1,9 +1,10 @@
 const express = require("express");
-const router = express.Router();
-const User = require("../schemas/User");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
 const auth = require("../middleware/auth");
+const User = require("../schemas/User");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
+
+const router = express.Router();
 
 router.post("/register", async(req, res) => {
     const {username, password} = req.body;
@@ -69,6 +70,18 @@ router.post("/login", async (req, res) => {
         res.status(500).json({
             msg: error.message
         })
+    }
+});
+
+router.get("/:id", async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id);
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+        res.json(user);
+    } catch (error) {
+        res.status(500).json({ error: "Failed to retrieve user" });
     }
 });
 

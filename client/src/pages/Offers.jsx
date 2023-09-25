@@ -17,16 +17,14 @@ export default function Offers() {
             return;
         }
 
-        const userId = getUserId(auth_token);
-
-        fetch(`http://localhost:4000/offers/all/${userId}`)
+        fetch(`http://localhost:4000/offers/${getUserId(auth_token)}`)
             .then((response) => response.json())
             .then((newData) => {
                 // Update the offerData state with the new data
                 setOfferData(newData);
             })
             .catch((error) => console.error('Error fetching data:', error));
-    },);
+    });
 
     // Function to update the offer status and fetch updated data
     const handleDeclineOffer = (offerId) => {
@@ -46,7 +44,7 @@ export default function Offers() {
                     throw new Error('Response error encountered.');
                 }
                 // After successfully updating the status, fetch the updated data
-                return fetch(`http://localhost:4000/offers/all/${getUserId(auth_token)}`);
+                return fetch(`http://localhost:4000/offers/${getUserId(auth_token)}`);
             })
             .then((response) => response.json())
             .then((newData) => {
@@ -60,7 +58,7 @@ export default function Offers() {
 
     const handleAcceptOffer = async (tradeId, offerId) => {
         try {
-            const tradeResponse = await fetch(`http://localhost:4000/api/trades/${tradeId}`, {
+            const tradeResponse = await fetch(`http://localhost:4000/trades/update/${tradeId}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -93,7 +91,7 @@ export default function Offers() {
             }
 
             // Fetch updated offer data and set it in your state
-            const newDataResponse = await fetch(`http://localhost:4000/offers/all/${getUserId(auth_token)}`);
+            const newDataResponse = await fetch(`http://localhost:4000/offers/${getUserId(auth_token)}`);
             if (!newDataResponse.ok) {
                 throw new Error('Fetching updated offer data failed.');
             }
@@ -108,11 +106,9 @@ export default function Offers() {
     return (
         <div className="offer-grid-container">
             <div className="incoming-tab">
-                {/* Pass the offerData state and the decline handler to IncomingOffers */}
                 <IncomingOffers data={offerData.tradeOffers} onDeclineOffer={handleDeclineOffer}
                                 onAcceptOffer={handleAcceptOffer}/>
             </div>
-
             <div className="outgoing-tab">
                 <OutgoingOffers data={offerData.associatedTrades}/>
             </div>
