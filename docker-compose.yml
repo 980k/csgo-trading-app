@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  nodebackend:
+    build:
+      context: ./server
+    ports:
+      - "4000:4000"
+    depends_on:
+      - db
+  db:
+    image: mongo:latest
+    volumes:
+      - csgo_trading_app_db:/data/db
+    ports:
+      - "27017:27017"
+
+volumes:
+  csgo_trading_app_db:

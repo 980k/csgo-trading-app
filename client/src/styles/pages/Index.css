@@ -8,19 +8,21 @@
 .left-sidebar {
     padding: .25em 1em;
     border-right: 1px solid #dcdcdd;
-    overflow: scroll;
 }
 
 .right-sidebar {
     padding: .25em 1em;
     border-left: 1px solid #dcdcdd;
-    overflow: scroll;
 }
 
 .content {
     padding: 1em;
     margin-top: .5em;
     overflow: auto;
+}
+
+.left-sidebar {
+    overflow: scroll; /* Add a scrollbar when the content overflows */
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
@@ -40,16 +42,6 @@
 
 /* Hide scrollbar for IE, Edge and Firefox */
 .left-sidebar {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-}
-
-.right-sidebar::-webkit-scrollbar {
-    display: none;
-}
-
-/* Hide scrollbar for IE, Edge and Firefox */
-.right-sidebar {
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
 }
