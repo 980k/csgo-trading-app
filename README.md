@@ -12,10 +12,10 @@ A full-stack web application to facilitate trading of items from the game Counte
 
 ## Technologies Used
 ### Frontend
-- **HTML**, **CSS**, **JavaScript (React.js)**
+- **HTML**, **CSS**, **React.js**
 
 ### Backend
-- **JavaScript (Express.js, Node.js)**, **MongoDB**
+- **Express.js**, **Node.js**, **MongoDB**
 
 ### Middleware
 - **JavaScript**
